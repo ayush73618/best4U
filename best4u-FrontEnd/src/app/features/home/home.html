@@ -1,0 +1,44 @@
+<main class="home">
+  <section class="home__hero">
+    <h1>What do you need today?</h1>
+    <p>
+      One place for everyday shopping, tools, and planning — search will land
+      here.
+    </p>
+  </section>
+
+  @for (umbrella of registry.umbrellas; track umbrella.id) {
+  <section class="home__umbrella" [attr.data-umbrella]="umbrella.id">
+    <header class="home__umbrella-header">
+      <h2>{{ umbrella.name }}</h2>
+      <p>{{ umbrella.tagline }}</p>
+    </header>
+
+    <div class="home__brand-list">
+      @for (brand of registry.brandsByUmbrella(umbrella.id); track brand.id) {
+      @if (brand.status === 'active') {
+      <a
+        class="home__brand-card home__brand-card--active"
+        [routerLink]="brand.route"
+      >
+        <div class="home__brand-card-header">
+          <h3>{{ brand.name }}</h3>
+          <span class="home__brand-open">Open →</span>
+        </div>
+        <p class="home__brand-code">{{ brand.code }}</p>
+        <p class="home__brand-tagline">{{ brand.tagline }}</p>
+      </a>
+      } @else {
+      <article class="home__brand-card">
+        <div class="home__brand-card-header">
+          <h3>{{ brand.name }}</h3>
+          <span class="home__brand-badge">Coming soon</span>
+        </div>
+        <p class="home__brand-code">{{ brand.code }}</p>
+        <p class="home__brand-tagline">{{ brand.tagline }}</p>
+      </article>
+      } }
+    </div>
+  </section>
+  }
+</main>

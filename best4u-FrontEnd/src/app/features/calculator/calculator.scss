@@ -1,0 +1,136 @@
+@use "sass:color";
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+.calculator-page {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: $space-6 $space-4;
+
+  &__back {
+    display: inline-block;
+    margin-bottom: $space-4;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-ink-muted;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-brand;
+    }
+  }
+}
+
+.calculator {
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $space-5;
+
+  &__header {
+    margin-bottom: $space-4;
+
+    h1 {
+      font-size: $font-size-xl;
+      margin-bottom: $space-1;
+    }
+
+    p {
+      font-family: $font-body;
+      font-size: $font-size-sm;
+      color: $color-ink-muted;
+      margin: 0;
+    }
+  }
+
+  &__display {
+    background: $color-brand-strong;
+    color: #ffffff;
+    border-radius: $radius-sm;
+    padding: $space-4;
+    margin-bottom: $space-4;
+    text-align: right;
+    overflow: hidden;
+
+    &--error {
+      background: #7a2b2b;
+    }
+  }
+
+  &__expression {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    opacity: 0.7;
+    min-height: 1.2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__value {
+    font-family: $font-display;
+    font-weight: $font-weight-bold;
+    font-size: 2.25rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $space-2;
+  }
+
+  &__key {
+    padding: $space-4 0;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-surface;
+    color: $color-ink;
+    font-family: $font-body;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-lg;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+
+    &:hover {
+      background: $color-border;
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    &--function {
+      color: $color-brand-strong;
+      background: $color-status-planned-bg;
+    }
+
+    &--operator {
+      color: $color-brand-strong;
+      font-weight: $font-weight-bold;
+    }
+
+    &--equals {
+      background: $color-accent;
+      border-color: $color-accent;
+      color: #ffffff;
+
+      &:hover {
+        background: color.adjust($color-accent, $lightness: -8%);
+      }
+    }
+  }
+
+  &__hint {
+    margin-top: $space-4;
+    font-family: $font-body;
+    font-size: 0.75rem;
+    color: $color-ink-muted;
+    text-align: center;
+  }
+}

@@ -1,0 +1,19 @@
+<main class="calc-page">
+  <a class="calc-page__back" routerLink="/">&larr; Back to Best4U</a>
+
+  <nav class="calc-page__tabs" aria-label="Money calculators">
+    @for (calc of calculators; track calc.id) {
+    <a
+      class="calc-page__tab"
+      [routerLink]="calc.path"
+      routerLinkActive="calc-page__tab--active"
+    >
+      {{ calc.label }}
+    </a>
+    }
+  </nav>
+
+  <app-currency-switcher></app-currency-switcher>
+
+  <router-outlet></router-outlet>
+</main>

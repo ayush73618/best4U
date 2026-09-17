@@ -1,0 +1,48 @@
+<main class="auth-page">
+  <a class="auth-page__back" routerLink="/">&larr; Back to Best4U</a>
+
+  <section class="auth" aria-label="Log in">
+    <header class="auth__header">
+      <h1>Log in</h1>
+      <p>Welcome back to Best4U</p>
+    </header>
+
+    <div class="auth__field">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        [value]="email()"
+        (input)="onEmailInput($any($event.target).value)"
+      />
+    </div>
+
+    <div class="auth__field">
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        [value]="password()"
+        (input)="onPasswordInput($any($event.target).value)"
+        (keydown.enter)="submit()"
+      />
+    </div>
+
+    @if (errorMessage()) {
+    <p class="auth__validation">{{ errorMessage() }}</p>
+    }
+
+    <button
+      class="auth__button"
+      type="button"
+      [disabled]="loading()"
+      (click)="submit()"
+    >
+      {{ loading() ? 'Logging in...' : 'Log in' }}
+    </button>
+
+    <p class="auth__switch">
+      New here? <a routerLink="/auth/register">Create an account</a>
+    </p>
+  </section>
+</main>

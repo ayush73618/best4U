@@ -1,0 +1,24 @@
+// Base palette for best4U: cool neutrals, a confident teal brand color,
+// and a muted gold accent (ties to the BAu4U/gold vertical, reads as
+// "trustworthy utility" rather than a shopping-site or AI-chat default).
+// Deliberately avoids the common cream+terracotta and near-black+neon
+// combinations.
+
+$color-ink: #10231f; // primary text
+$color-ink-muted: #4b5f5b; // secondary text
+$color-surface: #f4f6f5; // page background
+$color-surface-raised: #ffffff; // cards/panels
+$color-border: #dde3e1;
+
+$color-brand: #0f5257; // primary brand color (teal)
+$color-brand-strong: #08383c; // hover/emphasis
+$color-accent: #c9930f; // gold accent — used sparingly, for CTAs only
+
+// Umbrella accents: distinct but from the same family, used to visually
+// separate Shopping / Utilities / Lifestyle without a whole second palette.
+$color-umbrella-shopping: #c9583c;
+$color-umbrella-utilities: #0f5257;
+$color-umbrella-lifestyle: #6b4a7a;
+
+$color-status-planned-bg: #efeaf2;
+$color-status-planned-text: #6b4a7a;

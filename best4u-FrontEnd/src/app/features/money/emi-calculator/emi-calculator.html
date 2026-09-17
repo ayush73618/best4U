@@ -1,0 +1,98 @@
+<section class="calc" aria-label="EMI Calculator">
+  <header class="calc__header">
+    <h1>EMI Calculator</h1>
+    <p>Part of BM4U — Best Money 4 U</p>
+  </header>
+
+  <div class="calc__field">
+    <label for="loanAmount">Loan amount</label>
+    <input
+      id="loanAmount"
+      type="number"
+      inputmode="decimal"
+      min="0"
+      placeholder="e.g. 1000000"
+      [value]="loanAmount()"
+      (input)="onLoanAmountInput($any($event.target).value)"
+    />
+  </div>
+
+  <div class="calc__field">
+    <label for="interestRate">Interest rate (% per year)</label>
+    <input
+      id="interestRate"
+      type="number"
+      inputmode="decimal"
+      min="0"
+      step="0.1"
+      placeholder="e.g. 8.5"
+      [value]="interestRate()"
+      (input)="onInterestRateInput($any($event.target).value)"
+    />
+  </div>
+
+  <div class="calc__field">
+    <label for="tenure">Loan tenure (years)</label>
+    <input
+      id="tenure"
+      type="number"
+      inputmode="decimal"
+      min="1"
+      placeholder="e.g. 20"
+      [value]="tenureYears()"
+      (input)="onTenureInput($any($event.target).value)"
+    />
+  </div>
+
+  @if (validationMessage()) {
+  <p class="calc__validation">{{ validationMessage() }}</p>
+  } @if (result(); as r) {
+  <div class="calc__results">
+    <div class="calc__headline">
+      <span class="calc__headline-label">Monthly EMI</span>
+      <span class="calc__headline-value">{{ formattedEmi() }}</span>
+    </div>
+
+    <div class="calc__breakdown-bar" aria-hidden="true">
+      <div
+        class="calc__breakdown-segment calc__breakdown-segment--primary"
+        [style.flex-basis.%]="r.principalPercent"
+      ></div>
+      <div
+        class="calc__breakdown-segment calc__breakdown-segment--secondary"
+        [style.flex-basis.%]="r.interestPercent"
+      ></div>
+    </div>
+
+    <div class="calc__stats">
+      <div class="calc__stat">
+        <span
+          class="calc__stat-dot calc__stat-dot--primary"
+          aria-hidden="true"
+        ></span>
+        <span class="calc__stat-label">Principal</span>
+        <span class="calc__stat-value">{{ formattedPrincipal() }}</span>
+      </div>
+      <div class="calc__stat">
+        <span
+          class="calc__stat-dot calc__stat-dot--secondary"
+          aria-hidden="true"
+        ></span>
+        <span class="calc__stat-label">Total interest</span>
+        <span class="calc__stat-value">{{ formattedTotalInterest() }}</span>
+      </div>
+      <div class="calc__stat calc__stat--total">
+        <span class="calc__stat-label">Total payment</span>
+        <span class="calc__stat-value">{{ formattedTotalPayment() }}</span>
+      </div>
+    </div>
+  </div>
+  } @else if (!validationMessage()) {
+  <p class="calc__hint">Fill in all three fields to see your monthly EMI.</p>
+  }
+
+  <p class="calc__disclaimer">
+    This is an estimate for planning purposes, not financial advice — actual EMI
+    may vary by lender.
+  </p>
+</section>

@@ -1,0 +1,21 @@
+<div
+  class="file-dropzone"
+  [class.file-dropzone--active]="isDragOver()"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave()"
+  (drop)="onDrop($event)"
+>
+  <label class="file-dropzone__button">
+    {{ label }}
+    <input
+      type="file"
+      [accept]="accept"
+      [multiple]="multiple"
+      (change)="onInputChange($event)"
+      hidden
+    />
+  </label>
+  <p class="file-dropzone__hint">
+    or drag and drop {{ multiple ? 'files' : 'a file' }} here
+  </p>
+</div>

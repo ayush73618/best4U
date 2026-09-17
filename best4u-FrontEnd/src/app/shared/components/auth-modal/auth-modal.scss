@@ -1,0 +1,127 @@
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+.auth-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: $space-4;
+}
+
+.auth-modal {
+  position: relative;
+  background: $color-surface-raised;
+  border-radius: $radius-md;
+  padding: $space-6 $space-5 $space-5;
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+
+  &__close {
+    position: absolute;
+    top: $space-3;
+    right: $space-3;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: $color-ink-muted;
+    cursor: pointer;
+    padding: $space-1;
+    &:hover {
+      color: $color-ink;
+    }
+  }
+
+  &__header {
+    margin-bottom: $space-5;
+    h2 {
+      font-size: $font-size-xl;
+      margin-bottom: $space-1;
+    }
+    p {
+      font-family: $font-body;
+      font-size: $font-size-sm;
+      color: $color-ink-muted;
+      margin: 0;
+    }
+  }
+
+  &__field {
+    margin-bottom: $space-4;
+    label {
+      display: block;
+      font-family: $font-body;
+      font-weight: $font-weight-medium;
+      font-size: $font-size-sm;
+      margin-bottom: $space-1;
+    }
+    input {
+      width: 100%;
+      padding: $space-3;
+      border: 1px solid $color-border;
+      border-radius: $radius-sm;
+      font-family: $font-body;
+      font-size: $font-size-base;
+      background: $color-surface;
+      &:focus-visible {
+        border-color: $color-brand;
+      }
+    }
+  }
+
+  &__validation {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: #7a2b2b;
+    background: #f7e9e9;
+    padding: $space-2 $space-3;
+    border-radius: $radius-sm;
+    margin: 0 0 $space-4;
+  }
+
+  &__button {
+    width: 100%;
+    padding: $space-3;
+    border: none;
+    border-radius: $radius-sm;
+    background: $color-brand;
+    color: #fff;
+    font-family: $font-body;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    &:hover {
+      background: $color-brand-strong;
+    }
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  &__switch {
+    margin-top: $space-4;
+    text-align: center;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+  }
+
+  &__link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: $color-brand;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

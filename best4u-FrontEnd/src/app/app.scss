@@ -1,0 +1,3 @@
+// Root component has no styles of its own — layout/ owns page chrome,
+// features/* own their own page content. Global tokens live in
+// src/assets/styles and are pulled in via src/styles.scss.

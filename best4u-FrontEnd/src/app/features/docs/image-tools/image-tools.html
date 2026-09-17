@@ -1,0 +1,75 @@
+<section class="docs" aria-label="Image tools">
+  <header class="docs__header">
+    <h1>Image tools</h1>
+    <p>Compress, resize, or convert an image</p>
+  </header>
+
+  <app-file-dropzone
+    accept="image/*"
+    label="Choose an image"
+    (filesSelected)="onFileSelected($event)"
+  />
+
+  @if (selectedFile(); as file) {
+  <p class="docs__file-item"><span>{{ file.name }}</span></p>
+  }
+
+  <div class="docs__option-row">
+    <label for="format">Output format</label>
+    <select
+      id="format"
+      [value]="format()"
+      (change)="onFormatChange($any($event.target).value)"
+    >
+      <option value="jpg">JPEG</option>
+      <option value="png">PNG</option>
+    </select>
+  </div>
+
+  @if (format() === 'jpg') {
+  <div class="docs__option-row">
+    <label for="quality">Quality ({{ quality() }}%)</label>
+    <input
+      id="quality"
+      type="range"
+      min="10"
+      max="100"
+      step="5"
+      [value]="quality()"
+      (input)="onQualityInput($any($event.target).value)"
+    />
+  </div>
+  }
+
+  <div class="docs__option-row">
+    <label for="maxWidth">Max width in px (optional)</label>
+    <input
+      id="maxWidth"
+      type="number"
+      min="1"
+      placeholder="e.g. 1200"
+      [value]="maxWidth()"
+      (input)="onMaxWidthInput($any($event.target).value)"
+    />
+  </div>
+
+  @if (errorMessage()) {
+  <p class="docs__validation">{{ errorMessage() }}</p>
+  } @if (uploadProgress() !== null) {
+  <app-progress-bar [percent]="uploadProgress()!" label="Processing" />
+  }
+
+  <button
+    class="docs__button"
+    type="button"
+    [disabled]="loading()"
+    (click)="process()"
+  >
+    {{ loading() ? 'Processing...' : 'Process & download' }}
+  </button>
+
+  <p class="docs__disclaimer">
+    Files are processed and returned immediately — nothing is stored on our
+    servers.
+  </p>
+</section>

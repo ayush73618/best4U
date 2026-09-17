@@ -1,0 +1,65 @@
+@use '../../../assets/styles/colors' as *;
+@use '../../../assets/styles/typography' as *;
+@use '../../../assets/styles/spacing' as *;
+
+.umbrella-nav {
+    display: flex;
+    gap: $space-6;
+    padding: $space-3 $space-6;
+    overflow-x: auto;
+    background: $color-surface;
+    border-bottom: 1px solid $color-border;
+
+    &__group {
+        display: flex;
+        flex-direction: column;
+        gap: $space-2;
+        flex-shrink: 0;
+
+        &[data-umbrella='shopping'] .umbrella-nav__label {
+            color: $color-umbrella-shopping;
+        }
+
+        &[data-umbrella='utilities'] .umbrella-nav__label {
+            color: $color-umbrella-utilities;
+        }
+
+        &[data-umbrella='lifestyle'] .umbrella-nav__label {
+            color: $color-umbrella-lifestyle;
+        }
+    }
+
+    &__label {
+        font-family: $font-display;
+        font-weight: $font-weight-medium;
+        font-size: $font-size-sm;
+    }
+
+    &__chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $space-2;
+    }
+
+    &__chip {
+        font-family: $font-body;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-medium;
+        padding: $space-1 $space-3;
+        border: 1px solid $color-border;
+        border-radius: $radius-pill;
+        color: $color-ink;
+        background: $color-surface-raised;
+        cursor: default;
+
+        &--planned {
+            color: $color-status-planned-text;
+            background: $color-status-planned-bg;
+            border-color: transparent;
+        }
+    }
+
+    @media (max-width: 640px) {
+        gap: $space-4;
+    }
+}

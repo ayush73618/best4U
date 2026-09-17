@@ -1,0 +1,22 @@
+<nav class="category-bar" aria-label="Categories">
+  @for (umbrella of registry.umbrellas; track umbrella.id) {
+  <div class="category-bar__group" [attr.data-umbrella]="umbrella.id">
+    <span class="category-bar__label">{{ umbrella.name }}</span>
+    <div class="category-bar__chips">
+      @for (brand of registry.brandsByUmbrella(umbrella.id); track brand.id) {
+      @if (brand.status === 'active') {
+      <a
+        class="category-bar__chip category-bar__chip--active"
+        [routerLink]="brand.route"
+      >
+        {{ brand.shortLabel }}
+      </a>
+      } @else {
+      <span class="category-bar__chip category-bar__chip--planned">
+        {{ brand.shortLabel }}
+      </span>
+      } }
+    </div>
+  </div>
+  }
+</nav>

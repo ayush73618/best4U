@@ -1,0 +1,12 @@
+<div
+  class="progress-bar"
+  role="progressbar"
+  [attr.aria-valuenow]="percent"
+  aria-valuemin="0"
+  aria-valuemax="100"
+>
+  <div class="progress-bar__label">{{ label }}... {{ percent }}%</div>
+  <div class="progress-bar__track">
+    <div class="progress-bar__fill" [style.width.%]="percent"></div>
+  </div>
+</div>

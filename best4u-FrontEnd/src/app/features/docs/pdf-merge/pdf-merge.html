@@ -1,0 +1,48 @@
+<section class="docs" aria-label="Merge PDF">
+  <header class="docs__header">
+    <h1>Merge PDF</h1>
+    <p>Combine multiple PDFs into one file</p>
+  </header>
+
+  <app-file-dropzone
+    accept="application/pdf"
+    [multiple]="true"
+    label="Choose PDF files"
+    (filesSelected)="onFilesSelected($event)"
+  />
+
+  @if (selectedFiles().length > 0) {
+  <ul class="docs__file-list">
+    @for (file of selectedFiles(); track file.name; let i = $index) {
+    <li class="docs__file-item">
+      <span>{{ file.name }}</span>
+      <button
+        class="docs__button docs__button--ghost"
+        type="button"
+        (click)="removeFile(i)"
+      >
+        Remove
+      </button>
+    </li>
+    }
+  </ul>
+  } @if (errorMessage()) {
+  <p class="docs__validation">{{ errorMessage() }}</p>
+  } @if (uploadProgress() !== null) {
+  <app-progress-bar [percent]="uploadProgress()!" label="Merging" />
+  }
+
+  <button
+    class="docs__button"
+    type="button"
+    [disabled]="loading()"
+    (click)="merge()"
+  >
+    {{ loading() ? 'Merging...' : 'Merge & download' }}
+  </button>
+
+  <p class="docs__disclaimer">
+    Files are processed and returned immediately — nothing is stored on our
+    servers.
+  </p>
+</section>

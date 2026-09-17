@@ -1,0 +1,106 @@
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+.auth-page {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: $space-6 $space-4;
+
+  &__back {
+    display: inline-block;
+    margin-bottom: $space-4;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+    text-decoration: none;
+    &:hover {
+      color: $color-brand;
+    }
+  }
+}
+
+.auth {
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $space-5;
+
+  &__header {
+    margin-bottom: $space-5;
+    h1 {
+      font-size: $font-size-xl;
+      margin-bottom: $space-1;
+    }
+    p {
+      font-family: $font-body;
+      font-size: $font-size-sm;
+      color: $color-ink-muted;
+      margin: 0;
+    }
+  }
+
+  &__field {
+    margin-bottom: $space-4;
+    label {
+      display: block;
+      font-family: $font-body;
+      font-weight: $font-weight-medium;
+      font-size: $font-size-sm;
+      margin-bottom: $space-1;
+    }
+    input {
+      width: 100%;
+      padding: $space-3;
+      border: 1px solid $color-border;
+      border-radius: $radius-sm;
+      font-family: $font-body;
+      font-size: $font-size-base;
+      background: $color-surface;
+      &:focus-visible {
+        border-color: $color-brand;
+      }
+    }
+  }
+
+  &__validation {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: #7a2b2b;
+    background: #f7e9e9;
+    padding: $space-2 $space-3;
+    border-radius: $radius-sm;
+    margin: 0 0 $space-4;
+  }
+
+  &__button {
+    width: 100%;
+    padding: $space-3;
+    border: none;
+    border-radius: $radius-sm;
+    background: $color-brand;
+    color: #fff;
+    font-family: $font-body;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    &:hover {
+      background: $color-brand-strong;
+    }
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  &__switch {
+    margin-top: $space-4;
+    text-align: center;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+    a {
+      color: $color-brand;
+      text-decoration: none;
+    }
+  }
+}

@@ -1,0 +1,76 @@
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+.category-bar {
+  display: flex;
+  gap: $space-6;
+  padding: $space-3 $space-6;
+  overflow-x: auto;
+  background: $color-surface;
+  border-bottom: 1px solid $color-border;
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    flex-shrink: 0;
+
+    &[data-umbrella="shopping"] .category-bar__label {
+      color: $color-umbrella-shopping;
+    }
+
+    &[data-umbrella="utilities"] .category-bar__label {
+      color: $color-umbrella-utilities;
+    }
+
+    &[data-umbrella="lifestyle"] .category-bar__label {
+      color: $color-umbrella-lifestyle;
+    }
+  }
+
+  &__label {
+    font-family: $font-display;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+  }
+
+  &__chip {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    padding: $space-1 $space-3;
+    border-radius: $radius-pill;
+    text-decoration: none;
+    display: inline-block;
+
+    &--active {
+      color: $color-brand-strong;
+      background: $color-surface-raised;
+      border: 1px solid $color-brand;
+      cursor: pointer;
+
+      &:hover {
+        background: $color-brand;
+        color: #ffffff;
+      }
+    }
+
+    &--planned {
+      color: $color-status-planned-text;
+      background: $color-status-planned-bg;
+      border: 1px solid transparent;
+      cursor: default;
+    }
+  }
+
+  @media (max-width: 640px) {
+    gap: $space-4;
+  }
+}

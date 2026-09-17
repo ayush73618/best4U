@@ -1,0 +1,67 @@
+<section class="work" aria-label="Notes">
+  <header class="work__header">
+    <h1>Notes</h1>
+    <p>Part of BW4U — Best Work 4 U</p>
+  </header>
+
+  @if (loading()) {
+  <p class="work__empty">Loading your notes...</p>
+  } @else if (editingId(); as id) {
+  <div class="work__editor">
+    <input
+      type="text"
+      class="work__editor-title"
+      placeholder="Title"
+      [value]="draftTitle()"
+      (input)="onTitleInput($any($event.target).value)"
+    />
+    <textarea
+      class="work__editor-body"
+      placeholder="Write your note..."
+      rows="8"
+      [value]="draftBody()"
+      (input)="onBodyInput($any($event.target).value)"
+    ></textarea>
+    <div class="work__input-row">
+      <button class="work__button" type="button" (click)="saveNote()">
+        Save
+      </button>
+      <button
+        class="work__button work__button--ghost"
+        type="button"
+        (click)="cancelEdit()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+  } @else {
+  <div class="work__input-row">
+    <button class="work__button" type="button" (click)="newNote()">
+      + New note
+    </button>
+  </div>
+
+  @if (notes().length === 0) {
+  <p class="work__empty">No notes yet — create your first one above.</p>
+  } @else {
+  <ul class="work__list">
+    @for (note of notes(); track note.id) {
+    <li class="work__item work__item--note" (click)="openNote(note.id)">
+      <div class="work__item-text">
+        <strong>{{ note.title || 'Untitled' }}</strong>
+        <span class="work__item-meta">{{ snippet(note) }}</span>
+      </div>
+      <button
+        class="work__button work__button--ghost"
+        type="button"
+        (click)="deleteNote(note.id); $event.stopPropagation()"
+        aria-label="Delete note"
+      >
+        ✕
+      </button>
+    </li>
+    }
+  </ul>
+  } }
+</section>

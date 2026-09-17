@@ -1,0 +1,23 @@
+// Two-family pairing, clearly distinct roles:
+// - Manrope for headings and UI labels — a little more character, used
+//   sparingly, for things that carry the brand's tone.
+// - Inter for body copy and dense content (calculators, lists, forms)
+//   where plain legibility matters more than personality.
+// Loaded via <link> in index.html.
+
+$font-display: "Manrope", system-ui, sans-serif;
+$font-body: "Inter", system-ui, sans-serif;
+
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 1.75rem;
+$font-size-2xl: 2.5rem;
+
+$font-weight-regular: 400;
+$font-weight-medium: 600;
+$font-weight-bold: 700;
+
+$line-height-tight: 1.2;
+$line-height-normal: 1.5;

@@ -1,0 +1,110 @@
+<section class="calc" aria-label="PPF Calculator">
+  <header class="calc__header">
+    <h1>PPF Calculator</h1>
+    <p>Part of BM4U — Best Money 4 U</p>
+  </header>
+
+  <div class="calc__field">
+    <label for="yearlyAmount">Yearly deposit</label>
+    <input
+      id="yearlyAmount"
+      type="number"
+      inputmode="decimal"
+      min="500"
+      max="150000"
+      placeholder="e.g. 50000"
+      [value]="yearlyAmount()"
+      (input)="onYearlyAmountInput($any($event.target).value)"
+    />
+    <p class="calc__field-hint">
+      Min {{ minDepositLabel }}, max {{ maxDepositLabel }} per financial year
+      (fixed by the Government of India, regardless of your display currency).
+    </p>
+  </div>
+
+  <div class="calc__field">
+    <label for="interestRate">PPF interest rate (% per year)</label>
+    <input
+      id="interestRate"
+      type="number"
+      inputmode="decimal"
+      min="0"
+      step="0.1"
+      [value]="interestRate()"
+      (input)="onInterestRateInput($any($event.target).value)"
+    />
+    <p class="calc__field-hint">
+      Set by the government, revised quarterly \u2014 update if it has changed.
+    </p>
+  </div>
+
+  <div class="calc__field">
+    <label for="tenure">Tenure (years)</label>
+    <input
+      id="tenure"
+      type="number"
+      inputmode="decimal"
+      min="15"
+      [value]="tenureYears()"
+      (input)="onTenureInput($any($event.target).value)"
+    />
+    <p class="calc__field-hint">
+      15-year minimum lock-in, extendable in blocks of 5 years.
+    </p>
+  </div>
+
+  @if (validationMessage()) {
+  <p class="calc__validation">{{ validationMessage() }}</p>
+  } @if (result(); as r) {
+  <div class="calc__results">
+    <div class="calc__headline">
+      <span class="calc__headline-label">Maturity value</span>
+      <span class="calc__headline-value">{{ formattedMaturity() }}</span>
+    </div>
+
+    <div class="calc__breakdown-bar" aria-hidden="true">
+      <div
+        class="calc__breakdown-segment calc__breakdown-segment--primary"
+        [style.flex-basis.%]="r.investedPercent"
+      ></div>
+      <div
+        class="calc__breakdown-segment calc__breakdown-segment--secondary"
+        [style.flex-basis.%]="r.returnsPercent"
+      ></div>
+    </div>
+
+    <div class="calc__stats">
+      <div class="calc__stat">
+        <span
+          class="calc__stat-dot calc__stat-dot--primary"
+          aria-hidden="true"
+        ></span>
+        <span class="calc__stat-label">Total deposited</span>
+        <span class="calc__stat-value">{{ formattedInvested() }}</span>
+      </div>
+      <div class="calc__stat">
+        <span
+          class="calc__stat-dot calc__stat-dot--secondary"
+          aria-hidden="true"
+        ></span>
+        <span class="calc__stat-label">Interest earned</span>
+        <span class="calc__stat-value">{{ formattedReturns() }}</span>
+      </div>
+      <div class="calc__stat calc__stat--total">
+        <span class="calc__stat-label">Maturity value</span>
+        <span class="calc__stat-value">{{ formattedMaturity() }}</span>
+      </div>
+    </div>
+  </div>
+  } @else if (!validationMessage()) {
+  <p class="calc__hint">
+    Fill in all three fields to see your PPF maturity value.
+  </p>
+  }
+
+  <p class="calc__disclaimer">
+    PPF returns are backed by the Government of India and are tax-exempt (EEE).
+    The rate is editable since it changes quarterly \u2014 confirm the current
+    rate before relying on this estimate.
+  </p>
+</section>

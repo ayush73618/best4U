@@ -1,0 +1,27 @@
+<header class="site-header">
+  <a class="site-header__logo" href="/">Best4U</a>
+
+  <div class="site-header__search" role="search">
+    <input
+      type="search"
+      placeholder="What do you need today? (search coming soon)"
+      aria-label="Search Best4U"
+      disabled
+    />
+  </div>
+
+  <nav class="site-header__actions" aria-label="Account">
+    @if (authService.isAuthenticated()) {
+    <span class="site-header__greeting"
+      >Hi, {{ authService.currentUser()?.firstName }}</span
+    >
+    <button class="site-header__signin" type="button" (click)="logout()">
+      Log out
+    </button>
+    } @else {
+    <button class="site-header__signin" type="button" (click)="openSignIn()">
+      Sign in
+    </button>
+    }
+  </nav>
+</header>

@@ -1,0 +1,45 @@
+<main class="auth-page">
+  <a class="auth-page__back" routerLink="/">&larr; Back to Best4U</a>
+
+  <section class="auth" aria-label="Create account">
+    <header class="auth__header">
+      <h1>Create your account</h1>
+      <p>Join Best4U</p>
+    </header>
+
+    <div class="auth__field">
+      <label for="firstName">First name</label>
+      <input id="firstName" type="text" [value]="firstName()" (input)="onFirstNameInput($any($event.target).value)" />
+    </div>
+
+    <div class="auth__field">
+      <label for="lastName">Last name</label>
+      <input id="lastName" type="text" [value]="lastName()" (input)="onLastNameInput($any($event.target).value)" />
+    </div>
+
+    <div class="auth__field">
+      <label for="email">Email</label>
+      <input id="email" type="email" [value]="email()" (input)="onEmailInput($any($event.target).value)" />
+    </div>
+
+    <div class="auth__field">
+      <label for="mobileNumber">Mobile number (optional)</label>
+      <input id="mobileNumber" type="tel" [value]="mobileNumber()" (input)="onMobileInput($any($event.target).value)" />
+    </div>
+
+    <div class="auth__field">
+      <label for="password">Password</label>
+      <input id="password" type="password" [value]="password()" (input)="onPasswordInput($any($event.target).value)" (keydown.enter)="submit()" />
+    </div>
+
+    @if (errorMessage()) {
+    <p class="auth__validation">{{ errorMessage() }}</p>
+    }
+
+    <button class="auth__button" type="button" [disabled]="loading()" (click)="submit()">
+      {{ loading() ? 'Creating account...' : 'Create account' }}
+    </button>
+
+    <p class="auth__switch">Already have an account? <a routerLink="/auth/login">Log in</a></p>
+  </section>
+</main>

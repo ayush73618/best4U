@@ -1,0 +1,34 @@
+<section class="docs" aria-label="Split PDF">
+  <header class="docs__header">
+    <h1>Split PDF</h1>
+    <p>Splits every page into its own PDF, delivered as a ZIP</p>
+  </header>
+
+  <app-file-dropzone
+    accept="application/pdf"
+    label="Choose a PDF file"
+    (filesSelected)="onFileSelected($event)"
+  />
+
+  @if (selectedFile(); as file) {
+  <p class="docs__file-item"><span>{{ file.name }}</span></p>
+  } @if (errorMessage()) {
+  <p class="docs__validation">{{ errorMessage() }}</p>
+  } @if (uploadProgress() !== null) {
+  <app-progress-bar [percent]="uploadProgress()!" label="Splitting" />
+  }
+
+  <button
+    class="docs__button"
+    type="button"
+    [disabled]="loading()"
+    (click)="split()"
+  >
+    {{ loading() ? 'Splitting...' : 'Split & download ZIP' }}
+  </button>
+
+  <p class="docs__disclaimer">
+    Files are processed and returned immediately — nothing is stored on our
+    servers.
+  </p>
+</section>

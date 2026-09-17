@@ -1,0 +1,55 @@
+<section class="work" aria-label="To-dos">
+  <header class="work__header">
+    <h1>To-dos</h1>
+    <p>Part of BW4U — Best Work 4 U</p>
+  </header>
+
+  <div class="work__input-row">
+    <input
+      type="text"
+      placeholder="Add a task..."
+      [value]="newTodoText()"
+      (input)="onNewTodoInput($any($event.target).value)"
+      (keydown.enter)="addTodo()"
+    />
+    <button class="work__button" type="button" (click)="addTodo()">Add</button>
+  </div>
+
+  @if (todos().length === 0) {
+  <p class="work__empty">Nothing here yet — add your first task above.</p>
+  } @else {
+  <ul class="work__list">
+    @for (todo of todos(); track todo.id) {
+    <li class="work__item" [class.work__item--done]="todo.done">
+      <input
+        type="checkbox"
+        [checked]="todo.done"
+        (change)="toggleTodo(todo.id)"
+      />
+      <span class="work__item-text">{{ todo.text }}</span>
+      <button
+        class="work__button work__button--ghost"
+        type="button"
+        (click)="deleteTodo(todo.id)"
+        aria-label="Delete task"
+      >
+        ✕
+      </button>
+    </li>
+    }
+  </ul>
+
+  <div class="work__footer">
+    <span>{{ pendingCount }} pending · {{ completedCount }} done</span>
+    @if (completedCount > 0) {
+    <button
+      class="work__button work__button--ghost"
+      type="button"
+      (click)="clearCompleted()"
+    >
+      Clear completed
+    </button>
+    }
+  </div>
+  }
+</section>

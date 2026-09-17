@@ -1,0 +1,51 @@
+@use 'assets/styles/colors' as *;
+@use 'assets/styles/typography' as *;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: $color-surface;
+  color: $color-ink;
+  font-family: $font-body;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: $font-display;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+// Respect reduced-motion preferences (Section 19: accessibility)
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid $color-brand;
+  outline-offset: 2px;
+}

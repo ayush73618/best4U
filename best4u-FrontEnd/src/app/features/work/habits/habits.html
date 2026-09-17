@@ -1,0 +1,52 @@
+<section class="work" aria-label="Habits">
+  <header class="work__header">
+    <h1>Habits</h1>
+    <p>Part of BW4U — Best Work 4 U</p>
+  </header>
+
+  <div class="work__input-row">
+    <input
+      type="text"
+      placeholder="Add a habit, e.g. Drink water"
+      [value]="newHabitName()"
+      (input)="onNewHabitInput($any($event.target).value)"
+      (keydown.enter)="addHabit()"
+    />
+    <button class="work__button" type="button" (click)="addHabit()">Add</button>
+  </div>
+
+  @if (loading()) {
+  <p class="work__empty">Loading your habits...</p>
+  } @else if (habits().length === 0) {
+  <p class="work__empty">No habits yet — add one above to start tracking.</p>
+  } @else {
+  <ul class="work__list">
+    @for (habit of habits(); track habit.id) {
+    <li class="work__item work__item--habit">
+      <label class="work__habit-toggle">
+        <input
+          type="checkbox"
+          [checked]="isDoneToday(habit)"
+          (change)="toggleToday(habit.id)"
+        />
+        <span class="work__item-text">{{ habit.name }}</span>
+      </label>
+      <span
+        class="work__streak-badge"
+        [class.work__streak-badge--active]="currentStreak(habit) > 0"
+      >
+        🔥 {{ currentStreak(habit) }}
+      </span>
+      <button
+        class="work__button work__button--ghost"
+        type="button"
+        (click)="deleteHabit(habit.id)"
+        aria-label="Delete habit"
+      >
+        ✕
+      </button>
+    </li>
+    }
+  </ul>
+  }
+</section>

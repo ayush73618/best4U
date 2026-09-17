@@ -1,0 +1,13 @@
+<div class="currency-switcher">
+  <label for="currencySelect" class="currency-switcher__label">Currency</label>
+  <select
+    id="currencySelect"
+    class="currency-switcher__select"
+    [value]="currencyConfig.current().code"
+    (change)="onChange($any($event.target).value)"
+  >
+    @for (option of currencyConfig.supported; track option.code) {
+    <option [value]="option.code">{{ option.label }}</option>
+    }
+  </select>
+</div>

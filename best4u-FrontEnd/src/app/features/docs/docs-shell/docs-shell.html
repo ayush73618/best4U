@@ -1,0 +1,17 @@
+<main class="docs-page">
+  <a class="docs-page__back" routerLink="/">&larr; Back to Best4U</a>
+
+  <nav class="docs-page__tabs" aria-label="Docs tools">
+    @for (tool of tools; track tool.id) {
+    <a
+      class="docs-page__tab"
+      [routerLink]="tool.path"
+      routerLinkActive="docs-page__tab--active"
+    >
+      {{ tool.label }}
+    </a>
+    }
+  </nav>
+
+  <router-outlet></router-outlet>
+</main>

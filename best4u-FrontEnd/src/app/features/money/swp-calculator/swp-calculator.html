@@ -1,0 +1,129 @@
+<section class="calc" aria-label="SWP Calculator">
+  <header class="calc__header">
+    <h1>SWP Calculator</h1>
+    <p>Part of BM4U — Best Money 4 U</p>
+  </header>
+
+  <div class="calc__field">
+    <label for="corpus">Starting corpus</label>
+    <input
+      id="corpus"
+      type="number"
+      inputmode="decimal"
+      min="0"
+      placeholder="e.g. 2000000"
+      [value]="corpus()"
+      (input)="onCorpusInput($any($event.target).value)"
+    />
+  </div>
+
+  <div class="calc__field">
+    <label for="withdrawal">Monthly withdrawal</label>
+    <input
+      id="withdrawal"
+      type="number"
+      inputmode="decimal"
+      min="0"
+      placeholder="e.g. 15000"
+      [value]="monthlyWithdrawal()"
+      (input)="onWithdrawalInput($any($event.target).value)"
+    />
+  </div>
+
+  <div class="calc__field">
+    <label for="expectedReturn">Expected annual return (%)</label>
+    <input
+      id="expectedReturn"
+      type="number"
+      inputmode="decimal"
+      min="0"
+      step="0.1"
+      placeholder="e.g. 8"
+      [value]="expectedReturn()"
+      (input)="onExpectedReturnInput($any($event.target).value)"
+    />
+  </div>
+
+  <div class="calc__field">
+    <label for="tenure">Withdrawal period (years)</label>
+    <input
+      id="tenure"
+      type="number"
+      inputmode="decimal"
+      min="1"
+      placeholder="e.g. 20"
+      [value]="tenureYears()"
+      (input)="onTenureInput($any($event.target).value)"
+    />
+  </div>
+
+  @if (validationMessage()) {
+  <p class="calc__validation">{{ validationMessage() }}</p>
+  } @if (result(); as r) {
+  <div class="calc__results">
+    <div class="calc__headline">
+      <span class="calc__headline-label"
+        >Closing balance after {{ tenureYears() }} years</span
+      >
+      <span class="calc__headline-value">{{ formattedClosingBalance() }}</span>
+    </div>
+
+    @if (depletionMessage()) {
+    <p class="calc__alert">{{ depletionMessage() }}</p>
+    }
+
+    <div class="calc__stats">
+      <div class="calc__stat">
+        <span
+          class="calc__stat-dot calc__stat-dot--primary"
+          aria-hidden="true"
+        ></span>
+        <span class="calc__stat-label">Total withdrawn</span>
+        <span class="calc__stat-value">{{ formattedTotalWithdrawn() }}</span>
+      </div>
+      <div class="calc__stat">
+        <span
+          class="calc__stat-dot calc__stat-dot--secondary"
+          aria-hidden="true"
+        ></span>
+        <span class="calc__stat-label">Interest earned</span>
+        <span class="calc__stat-value">{{ formattedTotalInterest() }}</span>
+      </div>
+      <div class="calc__stat calc__stat--total">
+        <span class="calc__stat-label">Closing balance</span>
+        <span class="calc__stat-value">{{ formattedClosingBalance() }}</span>
+      </div>
+    </div>
+
+    <table class="calc__table">
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th>Withdrawn</th>
+          <th>Interest</th>
+          <th>Closing balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of r.schedule; track row.year) {
+        <tr>
+          <td>{{ row.year }}</td>
+          <td>{{ formatRowAmount(row.withdrawn) }}</td>
+          <td>{{ formatRowAmount(row.interestEarned) }}</td>
+          <td>{{ formatRowAmount(row.closingBalance) }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  } @else if (!validationMessage()) {
+  <p class="calc__hint">
+    Fill in all four fields to see your withdrawal projection.
+  </p>
+  }
+
+  <p class="calc__disclaimer">
+    This is an estimate assuming a constant rate of return \u2014 actual market
+    returns will vary month to month.
+  </p>
+</section>

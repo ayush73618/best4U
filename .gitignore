@@ -1,0 +1,60 @@
+# =============================
+# Common system/editor files
+# =============================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# =============================
+# Logs and temp files
+# =============================
+*.log
+logs/
+tmp/
+temp/
+.cache/
+
+# =============================
+# Environment files
+# =============================
+.env
+.env.*
+!.env.example
+
+# =============================
+# Frontend (Angular / Node)
+# =============================
+**/node_modules/
+**/dist/
+**/build/
+**/.angular/
+**/.cache/
+**/.parcel-cache/
+**/coverage/
+**/npm-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+
+# =============================
+# Backend (Node / Python)
+# =============================
+**/venv/
+**/.venv/
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.coverage
+**/coverage/
+**/*.sqlite3
+
+# =============================
+# Optional project-specific generated files
+# =============================
+**/.next/
+**/.nuxt/
+**/.svelte-kit/
+**/out/

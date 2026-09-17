@@ -1,0 +1,41 @@
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+.file-dropzone {
+  border: 2px dashed $color-border;
+  border-radius: $radius-md;
+  padding: $space-6 $space-4;
+  margin-bottom: $space-4;
+  text-align: center;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+
+  &--active {
+    border-color: $color-brand;
+    background: $color-surface;
+  }
+
+  &__button {
+    display: inline-block;
+    padding: $space-3 $space-5;
+    background: $color-brand;
+    color: #fff;
+    font-family: $font-body;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    &:hover {
+      background: $color-brand-strong;
+    }
+  }
+
+  &__hint {
+    margin: $space-3 0 0;
+    font-family: $font-body;
+    font-size: $font-size-xs;
+    color: $color-ink-muted;
+  }
+}

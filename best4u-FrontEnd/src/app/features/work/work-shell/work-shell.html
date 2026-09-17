@@ -1,0 +1,17 @@
+<main class="work-page">
+  <a class="work-page__back" routerLink="/">&larr; Back to Best4U</a>
+
+  <nav class="work-page__tabs" aria-label="Work sections">
+    @for (section of sections; track section.id) {
+    <a
+      class="work-page__tab"
+      [routerLink]="section.path"
+      routerLinkActive="work-page__tab--active"
+    >
+      {{ section.label }}
+    </a>
+    }
+  </nav>
+
+  <router-outlet></router-outlet>
+</main>

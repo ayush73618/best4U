@@ -1,0 +1,142 @@
+<main class="calculator-page">
+  <a class="calculator-page__back" routerLink="/">&larr; Back to Best4U</a>
+
+  <section class="calculator" aria-label="Calculator">
+    <header class="calculator__header">
+      <h1>Calculator</h1>
+      <p>Part of BT4U — Best Tools 4 U</p>
+    </header>
+
+    <div
+      class="calculator__display"
+      [class.calculator__display--error]="hasError()"
+    >
+      <div class="calculator__expression" aria-hidden="true">
+        {{ expression() }}
+      </div>
+      <div class="calculator__value" aria-live="polite">
+        {{ formattedDisplay() }}
+      </div>
+    </div>
+
+    <div class="calculator__keys">
+      <button
+        type="button"
+        class="calculator__key calculator__key--function"
+        (click)="clearAll()"
+      >
+        AC
+      </button>
+      <button
+        type="button"
+        class="calculator__key calculator__key--function"
+        (click)="backspace()"
+        aria-label="Backspace"
+      >
+        ⌫
+      </button>
+      <button
+        type="button"
+        class="calculator__key calculator__key--function"
+        (click)="inputPercent()"
+        aria-label="Percent"
+      >
+        %
+      </button>
+      <button
+        type="button"
+        class="calculator__key calculator__key--operator"
+        (click)="chooseOperator('/')"
+        aria-label="Divide"
+      >
+        ÷
+      </button>
+
+      <button type="button" class="calculator__key" (click)="inputDigit('7')">
+        7
+      </button>
+      <button type="button" class="calculator__key" (click)="inputDigit('8')">
+        8
+      </button>
+      <button type="button" class="calculator__key" (click)="inputDigit('9')">
+        9
+      </button>
+      <button
+        type="button"
+        class="calculator__key calculator__key--operator"
+        (click)="chooseOperator('*')"
+        aria-label="Multiply"
+      >
+        ×
+      </button>
+
+      <button type="button" class="calculator__key" (click)="inputDigit('4')">
+        4
+      </button>
+      <button type="button" class="calculator__key" (click)="inputDigit('5')">
+        5
+      </button>
+      <button type="button" class="calculator__key" (click)="inputDigit('6')">
+        6
+      </button>
+      <button
+        type="button"
+        class="calculator__key calculator__key--operator"
+        (click)="chooseOperator('-')"
+        aria-label="Subtract"
+      >
+        −
+      </button>
+
+      <button type="button" class="calculator__key" (click)="inputDigit('1')">
+        1
+      </button>
+      <button type="button" class="calculator__key" (click)="inputDigit('2')">
+        2
+      </button>
+      <button type="button" class="calculator__key" (click)="inputDigit('3')">
+        3
+      </button>
+      <button
+        type="button"
+        class="calculator__key calculator__key--operator"
+        (click)="chooseOperator('+')"
+        aria-label="Add"
+      >
+        +
+      </button>
+
+      <button
+        type="button"
+        class="calculator__key calculator__key--function"
+        (click)="toggleSign()"
+        aria-label="Toggle sign"
+      >
+        ±
+      </button>
+      <button type="button" class="calculator__key" (click)="inputDigit('0')">
+        0
+      </button>
+      <button
+        type="button"
+        class="calculator__key"
+        (click)="inputDecimal()"
+        aria-label="Decimal point"
+      >
+        .
+      </button>
+      <button
+        type="button"
+        class="calculator__key calculator__key--equals"
+        (click)="equals()"
+        aria-label="Equals"
+      >
+        =
+      </button>
+    </div>
+
+    <p class="calculator__hint">
+      Keyboard works too — numbers, + − × ÷, Enter, Backspace, Esc.
+    </p>
+  </section>
+</main>

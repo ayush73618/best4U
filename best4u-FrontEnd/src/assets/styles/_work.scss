@@ -1,0 +1,245 @@
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+// Shared layout for BW4U (To-dos, Notes, Habits). Deliberately separate
+// from _calculator.scss — Work isn't a calculator, so it gets its own
+// block instead of overloading ".calc" classes onto an unrelated feature.
+
+.work-page {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: $space-6 $space-4;
+
+  &__back {
+    display: inline-block;
+    margin-bottom: $space-4;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-ink-muted;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-brand;
+    }
+  }
+
+  &__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    margin-bottom: $space-4;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__tab {
+    padding: $space-2 $space-3;
+    font-family: $font-body;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+
+    &:hover {
+      color: $color-ink;
+    }
+
+    &--active {
+      color: $color-brand;
+      border-bottom-color: $color-brand;
+    }
+  }
+}
+
+.work {
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $space-5;
+
+  &__header {
+    margin-bottom: $space-4;
+
+    h1 {
+      font-size: $font-size-xl;
+      margin-bottom: $space-1;
+    }
+    p {
+      font-family: $font-body;
+      font-size: $font-size-sm;
+      color: $color-ink-muted;
+      margin: 0;
+    }
+  }
+
+  &__input-row {
+    display: flex;
+    gap: $space-2;
+    margin-bottom: $space-4;
+
+    input[type="text"] {
+      flex: 1;
+      padding: $space-3;
+      border: 1px solid $color-border;
+      border-radius: $radius-sm;
+      font-family: $font-body;
+      font-size: $font-size-base;
+      color: $color-ink;
+      background: $color-surface;
+
+      &:focus-visible {
+        border-color: $color-brand;
+      }
+    }
+  }
+
+  &__button {
+    padding: $space-2 $space-4;
+    border: none;
+    border-radius: $radius-sm;
+    background: $color-brand;
+    color: #ffffff;
+    font-family: $font-body;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover {
+      background: $color-brand-strong;
+    }
+
+    &--ghost {
+      background: transparent;
+      color: $color-ink-muted;
+      border: 1px solid $color-border;
+
+      &:hover {
+        color: $color-ink;
+        border-color: $color-ink-muted;
+      }
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-3 0;
+    border-bottom: 1px solid $color-border;
+    font-family: $font-body;
+    font-size: $font-size-base;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &--done .work__item-text {
+      text-decoration: line-through;
+      color: $color-ink-muted;
+    }
+
+    &--note {
+      cursor: pointer;
+      align-items: flex-start;
+
+      &:hover {
+        background: $color-surface;
+      }
+    }
+
+    &--habit {
+      justify-content: space-between;
+    }
+  }
+
+  &__item-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: $color-ink;
+  }
+
+  &__item-meta {
+    font-size: $font-size-xs;
+    color: $color-ink-muted;
+    font-weight: $font-weight-regular;
+  }
+
+  &__empty {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+    text-align: center;
+    padding: $space-5 0;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: $space-3;
+    padding-top: $space-3;
+    border-top: 1px solid $color-border;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+  }
+
+  &__editor {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+  }
+
+  &__editor-title,
+  &__editor-body {
+    padding: $space-3;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    font-family: $font-body;
+    font-size: $font-size-base;
+    color: $color-ink;
+    background: $color-surface;
+
+    &:focus-visible {
+      border-color: $color-brand;
+    }
+  }
+
+  &__editor-title {
+    font-weight: $font-weight-medium;
+  }
+  &__editor-body {
+    resize: vertical;
+  }
+
+  &__habit-toggle {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    flex: 1;
+    cursor: pointer;
+  }
+
+  &__streak-badge {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+
+    &--active {
+      color: $color-accent;
+      font-weight: $font-weight-medium;
+    }
+  }
+}

@@ -1,0 +1,151 @@
+@if (modalService.isOpen()) {
+<div class="auth-modal-backdrop" (click)="onBackdropClick()">
+  <div
+    class="auth-modal"
+    role="dialog"
+    aria-modal="true"
+    (click)="$event.stopPropagation()"
+  >
+    <button
+      class="auth-modal__close"
+      type="button"
+      (click)="close()"
+      aria-label="Close"
+    >
+      &times;
+    </button>
+
+    @if (modalService.mode() === 'login') {
+    <header class="auth-modal__header">
+      <h2>Log in</h2>
+      <p>Welcome back to Best4U</p>
+    </header>
+
+    <div class="auth-modal__field">
+      <label for="modalLoginEmail">Email</label>
+      <input
+        id="modalLoginEmail"
+        type="email"
+        [value]="loginEmail()"
+        (input)="onLoginEmailInput($any($event.target).value)"
+      />
+    </div>
+
+    <div class="auth-modal__field">
+      <label for="modalLoginPassword">Password</label>
+      <input
+        id="modalLoginPassword"
+        type="password"
+        [value]="loginPassword()"
+        (input)="onLoginPasswordInput($any($event.target).value)"
+        (keydown.enter)="submitLogin()"
+      />
+    </div>
+
+    @if (errorMessage()) {
+    <p class="auth-modal__validation">{{ errorMessage() }}</p>
+    }
+
+    <button
+      class="auth-modal__button"
+      type="button"
+      [disabled]="loading()"
+      (click)="submitLogin()"
+    >
+      {{ loading() ? 'Logging in...' : 'Log in' }}
+    </button>
+
+    <p class="auth-modal__switch">
+      New here?
+      <button
+        class="auth-modal__link-button"
+        type="button"
+        (click)="switchMode('register')"
+      >
+        Create an account
+      </button>
+    </p>
+    } @else {
+    <header class="auth-modal__header">
+      <h2>Create your account</h2>
+      <p>Join Best4U</p>
+    </header>
+
+    <div class="auth-modal__field">
+      <label for="modalFirstName">First name</label>
+      <input
+        id="modalFirstName"
+        type="text"
+        [value]="firstName()"
+        (input)="onFirstNameInput($any($event.target).value)"
+      />
+    </div>
+
+    <div class="auth-modal__field">
+      <label for="modalLastName">Last name</label>
+      <input
+        id="modalLastName"
+        type="text"
+        [value]="lastName()"
+        (input)="onLastNameInput($any($event.target).value)"
+      />
+    </div>
+
+    <div class="auth-modal__field">
+      <label for="modalRegisterEmail">Email</label>
+      <input
+        id="modalRegisterEmail"
+        type="email"
+        [value]="registerEmail()"
+        (input)="onRegisterEmailInput($any($event.target).value)"
+      />
+    </div>
+
+    <div class="auth-modal__field">
+      <label for="modalMobile">Mobile number (optional)</label>
+      <input
+        id="modalMobile"
+        type="tel"
+        [value]="mobileNumber()"
+        (input)="onMobileInput($any($event.target).value)"
+      />
+    </div>
+
+    <div class="auth-modal__field">
+      <label for="modalRegisterPassword">Password</label>
+      <input
+        id="modalRegisterPassword"
+        type="password"
+        [value]="registerPassword()"
+        (input)="onRegisterPasswordInput($any($event.target).value)"
+        (keydown.enter)="submitRegister()"
+      />
+    </div>
+
+    @if (errorMessage()) {
+    <p class="auth-modal__validation">{{ errorMessage() }}</p>
+    }
+
+    <button
+      class="auth-modal__button"
+      type="button"
+      [disabled]="loading()"
+      (click)="submitRegister()"
+    >
+      {{ loading() ? 'Creating account...' : 'Create account' }}
+    </button>
+
+    <p class="auth-modal__switch">
+      Already have an account?
+      <button
+        class="auth-modal__link-button"
+        type="button"
+        (click)="switchMode('login')"
+      >
+        Log in
+      </button>
+    </p>
+    }
+  </div>
+</div>
+}

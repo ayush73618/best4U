@@ -1,0 +1,18 @@
+<nav class="umbrella-nav" aria-label="Categories">
+  @for (umbrella of registry.umbrellas; track umbrella.id) {
+  <div class="umbrella-nav__group" [attr.data-umbrella]="umbrella.id">
+    <span class="umbrella-nav__label">{{ umbrella.name }}</span>
+    <div class="umbrella-nav__chips">
+      @for (brand of registry.brandsByUmbrella(umbrella.id); track brand.id) {
+      <span
+        class="umbrella-nav__chip"
+        [class.umbrella-nav__chip--planned]="brand.status === 'planned'"
+        [title]="brand.name + ' — ' + brand.tagline"
+      >
+        {{ brand.code }}
+      </span>
+      }
+    </div>
+  </div>
+  }
+</nav>

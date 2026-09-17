@@ -1,0 +1,50 @@
+<section class="docs" aria-label="Compress PDF">
+  <header class="docs__header">
+    <h1>Compress PDF</h1>
+    <p>Shrink a PDF's file size</p>
+  </header>
+
+  <app-file-dropzone
+    accept="application/pdf"
+    label="Choose a PDF file"
+    (filesSelected)="onFileSelected($event)"
+  />
+
+  @if (selectedFile(); as file) {
+  <p class="docs__file-item"><span>{{ file.name }}</span></p>
+  }
+
+  <div class="docs__option-row">
+    <label for="level">Compression level</label>
+    <select
+      id="level"
+      [value]="level()"
+      (change)="onLevelChange($any($event.target).value)"
+    >
+      <option value="low">Low (best quality, larger file)</option>
+      <option value="medium">Medium</option>
+      <option value="high">High (smallest file, lower quality)</option>
+    </select>
+  </div>
+
+  @if (errorMessage()) {
+  <p class="docs__validation">{{ errorMessage() }}</p>
+  } @if (uploadProgress() !== null) {
+  <app-progress-bar [percent]="uploadProgress()!" label="Compressing" />
+  }
+
+  <button
+    class="docs__button"
+    type="button"
+    [disabled]="loading()"
+    (click)="compress()"
+  >
+    {{ loading() ? 'Compressing...' : 'Compress & download' }}
+  </button>
+
+  <p class="docs__disclaimer">
+    Compression works by converting each page to an image — the output will be
+    smaller, but text will no longer be selectable or searchable. Files are
+    processed and returned immediately; nothing is stored on our servers.
+  </p>
+</section>

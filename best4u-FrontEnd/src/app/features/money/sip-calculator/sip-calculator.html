@@ -1,0 +1,129 @@
+<section class="calc" aria-label="SIP Calculator">
+  <header class="calc__header">
+    <h1>SIP Calculator</h1>
+    <p>Part of BM4U — Best Money 4 U</p>
+  </header>
+
+  <div class="calc__field">
+    <label for="monthlyAmount">Monthly investment</label>
+    <input
+      id="monthlyAmount"
+      type="number"
+      inputmode="decimal"
+      min="0"
+      placeholder="e.g. 5000"
+      [value]="monthlyAmount()"
+      (input)="onMonthlyAmountInput($any($event.target).value)"
+    />
+  </div>
+
+  <div class="calc__field">
+    <label for="expectedReturn">Expected annual return (%)</label>
+    <input
+      id="expectedReturn"
+      type="number"
+      inputmode="decimal"
+      min="0"
+      step="0.1"
+      placeholder="e.g. 12"
+      [value]="expectedReturn()"
+      (input)="onExpectedReturnInput($any($event.target).value)"
+    />
+  </div>
+
+  <div class="calc__field">
+    <label for="tenure">Investment period (years)</label>
+    <input
+      id="tenure"
+      type="number"
+      inputmode="decimal"
+      min="1"
+      placeholder="e.g. 15"
+      [value]="tenureYears()"
+      (input)="onTenureInput($any($event.target).value)"
+    />
+  </div>
+
+  <div class="calc__field">
+    <label>
+      <input
+        type="checkbox"
+        [checked]="stepUpEnabled()"
+        (change)="onStepUpToggle($any($event.target).checked)"
+        style="width: auto; margin-right: 8px"
+      />
+      Step up my SIP every year
+    </label>
+  </div>
+
+  @if (stepUpEnabled()) {
+  <div class="calc__field">
+    <label for="stepUp">Annual step-up (%)</label>
+    <input
+      id="stepUp"
+      type="number"
+      inputmode="decimal"
+      min="0"
+      step="1"
+      placeholder="e.g. 10"
+      [value]="stepUpPercent()"
+      (input)="onStepUpInput($any($event.target).value)"
+    />
+    <p class="calc__field-hint">
+      Increases your monthly SIP by this % at the start of each year.
+    </p>
+  </div>
+  } @if (validationMessage()) {
+  <p class="calc__validation">{{ validationMessage() }}</p>
+  } @if (result(); as r) {
+  <div class="calc__results">
+    <div class="calc__headline">
+      <span class="calc__headline-label">Maturity value</span>
+      <span class="calc__headline-value">{{ formattedMaturity() }}</span>
+    </div>
+
+    <div class="calc__breakdown-bar" aria-hidden="true">
+      <div
+        class="calc__breakdown-segment calc__breakdown-segment--primary"
+        [style.flex-basis.%]="r.investedPercent"
+      ></div>
+      <div
+        class="calc__breakdown-segment calc__breakdown-segment--secondary"
+        [style.flex-basis.%]="r.returnsPercent"
+      ></div>
+    </div>
+
+    <div class="calc__stats">
+      <div class="calc__stat">
+        <span
+          class="calc__stat-dot calc__stat-dot--primary"
+          aria-hidden="true"
+        ></span>
+        <span class="calc__stat-label">Invested amount</span>
+        <span class="calc__stat-value">{{ formattedInvested() }}</span>
+      </div>
+      <div class="calc__stat">
+        <span
+          class="calc__stat-dot calc__stat-dot--secondary"
+          aria-hidden="true"
+        ></span>
+        <span class="calc__stat-label">Estimated returns</span>
+        <span class="calc__stat-value">{{ formattedReturns() }}</span>
+      </div>
+      <div class="calc__stat calc__stat--total">
+        <span class="calc__stat-label">Maturity value</span>
+        <span class="calc__stat-value">{{ formattedMaturity() }}</span>
+      </div>
+    </div>
+  </div>
+  } @else if (!validationMessage()) {
+  <p class="calc__hint">
+    Fill in monthly investment, return, and tenure to see your maturity value.
+  </p>
+  }
+
+  <p class="calc__disclaimer">
+    Mutual fund investments are subject to market risk. This is an estimate
+    based on a constant assumed return — actual returns will vary.
+  </p>
+</section>
