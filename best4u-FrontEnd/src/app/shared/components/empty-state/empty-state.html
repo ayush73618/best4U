@@ -1,0 +1,10 @@
+<div class="empty-state">
+  <div class="empty-state__illustration">{{ icon }}</div>
+  <h2 class="empty-state__title">{{ title }}</h2>
+  <p class="empty-state__message">{{ message }}</p>
+  @if (actionLabel && actionRoute) {
+  <a class="empty-state__action" [routerLink]="actionRoute"
+    >{{ actionLabel }} →</a
+  >
+  }
+</div>

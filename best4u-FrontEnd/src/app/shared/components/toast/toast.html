@@ -1,0 +1,16 @@
+<div class="toast-container" aria-live="polite">
+  @for (toast of toastService.toasts(); track toast.id) {
+  <div
+    class="toast"
+    [class]="'toast--' + toast.type"
+    [@slideUp]
+    (click)="toastService.dismiss(toast.id)"
+  >
+    <span class="toast__icon">
+      @switch (toast.type) { @case ('success') { ✓ } @case ('error') { ✗ } @case
+      ('info') { ℹ } }
+    </span>
+    <span class="toast__message">{{ toast.message }}</span>
+  </div>
+  }
+</div>

@@ -15,15 +15,21 @@
   }
 
   <div class="docs__option-row">
-    <label for="format">Output format</label>
-    <select
-      id="format"
-      [value]="format()"
-      (change)="onFormatChange($any($event.target).value)"
+    <label>Output format</label>
+    <mat-form-field
+      appearance="outline"
+      subscriptSizing="dynamic"
+      class="docs__mat-field"
     >
-      <option value="jpg">JPEG</option>
-      <option value="png">PNG</option>
-    </select>
+      <mat-select
+        aria-label="Output format"
+        [value]="format()"
+        (selectionChange)="onFormatChange($event.value)"
+      >
+        <mat-option value="jpg">JPEG</mat-option>
+        <mat-option value="png">PNG</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   @if (format() === 'jpg') {

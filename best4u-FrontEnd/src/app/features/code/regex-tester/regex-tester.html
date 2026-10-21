@@ -1,0 +1,52 @@
+<!-- regex-tester.html -->
+<section class="dev" aria-label="Regex Tester">
+  <header class="dev__header">
+    <h1>Regex Tester</h1>
+    <p>Part of BC4U — Best Code 4 U</p>
+  </header>
+
+  <div class="dev__row">
+    <div class="dev__field dev__field--grow">
+      <label for="pattern">Pattern</label>
+      <input
+        id="pattern"
+        type="text"
+        placeholder="e.g. \\d+"
+        [value]="pattern()"
+        (input)="onPatternInput($any($event.target).value)"
+      />
+    </div>
+    <div class="dev__field dev__field--narrow">
+      <label for="flags">Flags</label>
+      <input
+        id="flags"
+        type="text"
+        placeholder="gi"
+        [value]="flags()"
+        (input)="onFlagsInput($any($event.target).value)"
+      />
+    </div>
+  </div>
+
+  <div class="dev__field">
+    <label for="testString">Test string</label>
+    <textarea
+      id="testString"
+      class="dev__textarea"
+      rows="6"
+      [value]="testString()"
+      (input)="onTestStringInput($any($event.target).value)"
+    ></textarea>
+  </div>
+
+  @if (result().error) {
+  <p class="dev__validation">{{ result().error }}</p>
+  } @else { @if (testString()) {
+  <div class="dev__field">
+    <label>Highlighted matches</label>
+    <div class="dev__highlight-box" [innerHTML]="highlightedHtml()"></div>
+  </div>
+  }
+  <p class="dev__note">{{ result().matchCount }} match(es)</p>
+  }
+</section>

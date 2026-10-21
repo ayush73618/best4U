@@ -1,0 +1,135 @@
+@use "assets/styles/colors" as *;
+@use "assets/styles/spacing" as *;
+
+// The shimmer animation that makes skeletons feel alive
+@keyframes shimmer {
+  0% {
+    background-position: -600px 0;
+  }
+  100% {
+    background-position: 600px 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    $color-border 25%,
+    darken($color-border, 4%) 50%,
+    $color-border 75%
+  );
+  background-size: 1200px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 4px;
+}
+
+// Product grid skeletons
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: $space-4;
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  padding: $space-4;
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: 10px;
+
+  &__image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 6px;
+  }
+  &__title {
+    height: 16px;
+    width: 75%;
+  }
+  &__price {
+    height: 20px;
+    width: 50%;
+  }
+  &__stock {
+    height: 12px;
+    width: 40%;
+  }
+}
+
+// List skeletons (orders, admin queues)
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.skeleton-list-item {
+  display: flex;
+  gap: $space-3;
+  padding: $space-3;
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+
+  &__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  &__lines {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    justify-content: center;
+  }
+  &__line {
+    height: 14px;
+  }
+  &__line--short {
+    width: 50%;
+  }
+}
+
+// Detail page skeleton
+.skeleton-detail {
+  display: flex;
+  gap: $space-6;
+
+  &__image {
+    width: 480px;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  &__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+  }
+  &__title {
+    height: 28px;
+    width: 80%;
+  }
+  &__price {
+    height: 36px;
+    width: 40%;
+  }
+  &__desc {
+    height: 14px;
+  }
+  &__desc--short {
+    width: 60%;
+  }
+}
+
+// Text skeleton
+.skeleton-text {
+  height: 14px;
+  width: 100%;
+  margin-bottom: $space-2;
+}

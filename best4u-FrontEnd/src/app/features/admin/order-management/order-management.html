@@ -1,0 +1,46 @@
+<section class="admin" aria-label="Order management">
+  <header class="admin__header">
+    <h1>Orders</h1>
+    <p>Update fulfillment status for paid orders</p>
+  </header>
+
+  @if (loading()) {
+  <p class="admin__empty">Loading orders...</p>
+  } @else if (orders().length === 0) {
+  <p class="admin__empty">No orders yet.</p>
+  } @else {
+  <ul class="admin__list">
+    @for (order of orders(); track order.id) {
+    <li class="admin__item">
+      <div class="admin__item-text">
+        <strong>Order #{{ order.id }}</strong>
+        <span class="admin__item-meta">
+          {{ order.items.length }} item(s) — ₹{{ order.totalAmount | number:
+          '1.0-0' }}
+        </span>
+        <span
+          class="admin__item-meta"
+          [ngClass]="{
+            'admin__status--paid': order.status === 'PAID',
+            'admin__status--shipped': order.status === 'SHIPPED',
+            'admin__status--delivered': order.status === 'DELIVERED'
+          }"
+          >{{ order.status }}</span
+        >
+      </div>
+      <div class="admin__actions">
+        @if (canShip(order.status)) {
+        <button class="admin__button" type="button" (click)="ship(order.id)">
+          Mark shipped
+        </button>
+        } @if (canDeliver(order.status)) {
+        <button class="admin__button" type="button" (click)="deliver(order.id)">
+          Mark delivered
+        </button>
+        }
+      </div>
+    </li>
+    }
+  </ul>
+  }
+</section>

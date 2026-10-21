@@ -1,1 +1,7 @@
 @use "assets/styles/calculator" as *;
+
+.calc__mat-field {
+  width: 100% !important;
+  --mat-form-field-container-height: 1.5rem !important;
+  --mat-form-field-container-vertical-padding: 0.4rem !important;
+}

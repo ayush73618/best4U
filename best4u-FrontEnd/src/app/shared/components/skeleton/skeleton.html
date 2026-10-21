@@ -1,0 +1,40 @@
+@switch (variant) { @case ('product-grid') {
+<div class="skeleton-grid">
+  @for (item of items; track item) {
+  <div class="skeleton-card">
+    <div class="skeleton-shimmer skeleton-card__image"></div>
+    <div class="skeleton-shimmer skeleton-card__title"></div>
+    <div class="skeleton-shimmer skeleton-card__price"></div>
+    <div class="skeleton-shimmer skeleton-card__stock"></div>
+  </div>
+  }
+</div>
+} @case ('list') {
+<div class="skeleton-list">
+  @for (item of items; track item) {
+  <div class="skeleton-list-item">
+    <div class="skeleton-shimmer skeleton-list-item__icon"></div>
+    <div class="skeleton-list-item__lines">
+      <div class="skeleton-shimmer skeleton-list-item__line"></div>
+      <div
+        class="skeleton-shimmer skeleton-list-item__line skeleton-list-item__line--short"
+      ></div>
+    </div>
+  </div>
+  }
+</div>
+} @case ('card') {
+<div class="skeleton-detail">
+  <div class="skeleton-shimmer skeleton-detail__image"></div>
+  <div class="skeleton-detail__info">
+    <div class="skeleton-shimmer skeleton-detail__title"></div>
+    <div class="skeleton-shimmer skeleton-detail__price"></div>
+    <div class="skeleton-shimmer skeleton-detail__desc"></div>
+    <div
+      class="skeleton-shimmer skeleton-detail__desc skeleton-detail__desc--short"
+    ></div>
+  </div>
+</div>
+} @default { @for (item of items; track item) {
+<div class="skeleton-shimmer skeleton-text"></div>
+} } }

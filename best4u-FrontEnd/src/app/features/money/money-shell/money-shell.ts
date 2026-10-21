@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { CurrencySwitcher } from '../../../shared/components/currency-switcher/currency-switcher';
+import { TabShell, ShellTab } from '../../../shared/components/tab-shell/tab-shell';
 
 @Component({
   selector: 'app-money-shell',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, RouterOutlet, CurrencySwitcher],
-  templateUrl: './money-shell.html',
-  styleUrl: './money-shell.scss',
+  imports: [TabShell],
+  template: `<app-tab-shell [tabs]="tabs" cssPrefix="calc-page" ariaLabel="Money calculators" umbrella="utilities" currentBrandId="bm4u" />`,
 })
 export class MoneyShell {
-  protected readonly calculators = [
+  protected readonly tabs: ShellTab[] = [
     { id: 'emi', label: 'EMI', path: 'emi' },
     { id: 'sip', label: 'SIP', path: 'sip' },
     { id: 'ppf', label: 'PPF', path: 'ppf' },

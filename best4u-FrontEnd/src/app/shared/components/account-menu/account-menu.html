@@ -1,0 +1,56 @@
+<div class="account-menu">
+  <button class="account-menu__trigger" type="button" (click)="toggle()">
+    Hi, {{ authService.currentUser()?.firstName }}
+    <span class="account-menu__caret">▾</span>
+  </button>
+
+  @if (isOpen()) {
+  <div class="account-menu__panel" [@fadeIn]>
+    <a class="account-menu__item" routerLink="/profile" (click)="close()"
+      >Profile</a
+    >
+    <a class="account-menu__item" routerLink="/shop/orders" (click)="close()"
+      >Orders</a
+    >
+
+    @switch (authService.currentUser()?.sellerStatus) { @case ('NONE') {
+    <a class="account-menu__item" routerLink="/sell" (click)="close()">
+      Become a seller
+    </a>
+    } @case ('PENDING') {
+    <span class="account-menu__item account-menu__item--disabled"
+      >Seller application pending</span
+    >
+    } @case ('APPROVED') {
+    <a class="account-menu__item" routerLink="/shop/sell" (click)="close()"
+      >Sell a product</a
+    >
+    <a
+      class="account-menu__item"
+      routerLink="/shop/my-listings"
+      (click)="close()"
+      >My listings</a
+    >
+    } @case ('REJECTED') {
+    <span class="account-menu__item account-menu__item--disabled"
+      >Seller application rejected</span
+    >
+    } } @if (isAdmin) {
+    <a class="account-menu__item" routerLink="/admin" (click)="close()"
+      >Admin portal</a
+    >
+    }
+
+    <span class="account-menu__item account-menu__item--disabled"
+      >About Us <em>(coming soon)</em></span
+    >
+    <button
+      class="account-menu__item account-menu__item--danger"
+      type="button"
+      (click)="logout()"
+    >
+      Log out
+    </button>
+  </div>
+  }
+</div>

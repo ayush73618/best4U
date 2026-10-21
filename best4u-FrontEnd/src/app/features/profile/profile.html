@@ -1,0 +1,107 @@
+<main class="profile-page">
+  <h1 class="profile-page__title">My profile</h1>
+
+  @if (loading()) {
+  <p>Loading...</p>
+  } @else if (profile(); as p) {
+  <div class="profile-card">
+    <section class="profile-card__section">
+      <h2>Account details</h2>
+      @if (!editing()) {
+      <div class="profile-card__field">
+        <span class="profile-card__label">Name</span>
+        <span>{{ p.firstName }} {{ p.lastName }}</span>
+      </div>
+      <div class="profile-card__field">
+        <span class="profile-card__label">Email</span>
+        <span>{{ p.email }}</span>
+      </div>
+      <div class="profile-card__field">
+        <span class="profile-card__label">Mobile</span>
+        <span>{{ p.mobileNumber || '—' }}</span>
+      </div>
+      <button class="profile-btn" type="button" (click)="startEdit()">
+        Edit profile
+      </button>
+      } @else {
+      <div class="profile-card__form">
+        <div class="profile-card__input-group">
+          <label>First name</label>
+          <input
+            type="text"
+            [value]="firstName()"
+            (input)="set('firstName', $any($event.target).value)"
+          />
+        </div>
+        <div class="profile-card__input-group">
+          <label>Last name</label>
+          <input
+            type="text"
+            [value]="lastName()"
+            (input)="set('lastName', $any($event.target).value)"
+          />
+        </div>
+        <div class="profile-card__input-group">
+          <label>Mobile number</label>
+          <input
+            type="tel"
+            [value]="mobileNumber()"
+            (input)="set('mobileNumber', $any($event.target).value)"
+          />
+        </div>
+        <div class="profile-card__actions">
+          <button
+            class="profile-btn"
+            type="button"
+            [disabled]="saving()"
+            (click)="save()"
+          >
+            {{ saving() ? 'Saving...' : 'Save' }}
+          </button>
+          <button
+            class="profile-btn profile-btn--ghost"
+            type="button"
+            (click)="cancelEdit()"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+      }
+    </section>
+
+    <section class="profile-card__section">
+      <h2>Seller status</h2>
+      <div class="profile-card__field">
+        <span class="profile-card__label">Status</span>
+        <span
+          class="profile-card__status"
+          [class]="'profile-card__status--' + p.sellerStatus"
+          >{{ sellerLabel }}</span
+        >
+      </div>
+      @if (p.sellerStatus === 'APPROVED') {
+      <div class="profile-card__links">
+        <a class="profile-btn" routerLink="/shop/sell">List a product</a>
+        <a class="profile-btn profile-btn--ghost" routerLink="/shop/my-listings"
+          >My listings</a
+        >
+      </div>
+      } @else if (p.sellerStatus === 'NONE') {
+      <a class="profile-btn profile-btn--ghost" routerLink="/sell"
+        >Apply to sell on Best4U →</a
+      >
+      }
+    </section>
+
+    <section class="profile-card__section">
+      <h2>Roles</h2>
+      <div class="profile-card__tags">
+        @for (role of p.roles; track role) {
+        <span class="profile-card__tag">{{ role }}</span>
+        }
+      </div>
+    </section>
+  </div>
+  }
+</main>

@@ -1,4 +1,4 @@
-export type UmbrellaId = 'shopping' | 'utilities' | 'lifestyle';
+export type UmbrellaId = string;
 
 export interface Umbrella {
   id: UmbrellaId;

@@ -1,0 +1,48 @@
+<section class="admin" aria-label="Product listings">
+  <header class="admin__header">
+    <h1>Product listings</h1>
+    <p>Review new submissions before they go live in the catalog</p>
+  </header>
+
+  @if (loading()) {
+  <p class="admin__empty">Loading listings...</p>
+  } @else if (products().length === 0) {
+  <p class="admin__empty">No pending listings.</p>
+  } @else {
+  <ul class="admin__list">
+    @for (product of products(); track product.id) {
+    <li class="admin__item">
+      <img
+        class="admin__item-image"
+        [src]="imageFor(product)"
+        [alt]="product.name"
+      />
+      <div class="admin__item-text">
+        <strong>{{ product.name }}</strong>
+        <span class="admin__item-meta"
+          >₹{{ product.price | number: '1.0-0' }} · {{ product.stockQuantity }}
+          in stock</span
+        >
+        <span class="admin__item-meta">{{ product.description }}</span>
+      </div>
+      <div class="admin__actions">
+        <button
+          class="admin__button"
+          type="button"
+          (click)="approve(product.id)"
+        >
+          Approve
+        </button>
+        <button
+          class="admin__button admin__button--ghost"
+          type="button"
+          (click)="reject(product.id)"
+        >
+          Reject
+        </button>
+      </div>
+    </li>
+    }
+  </ul>
+  }
+</section>

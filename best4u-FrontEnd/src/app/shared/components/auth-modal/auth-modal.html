@@ -1,5 +1,5 @@
 @if (modalService.isOpen()) {
-<div class="auth-modal-backdrop" (click)="onBackdropClick()">
+<div class="auth-modal-backdrop" [@fadeIn] (click)="onBackdropClick()">
   <div
     class="auth-modal"
     role="dialog"

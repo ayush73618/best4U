@@ -1,0 +1,211 @@
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+.admin-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: $space-6 $space-4;
+
+  &__topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-2;
+  }
+  &__back {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+    text-decoration: none;
+    &:hover {
+      color: $color-brand;
+    }
+  }
+
+  &__tabs {
+    display: flex;
+    gap: $space-2;
+    margin-bottom: $space-4;
+    border-bottom: 1px solid $color-border;
+  }
+  &__tab {
+    padding: $space-2 $space-3;
+    font-family: $font-body;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    &:hover {
+      color: $color-ink;
+    }
+    &--active {
+      color: $color-brand;
+      border-bottom-color: $color-brand;
+    }
+  }
+}
+
+.admin {
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $space-5;
+
+  &__header {
+    margin-bottom: $space-4;
+    h1 {
+      font-size: $font-size-xl;
+      margin-bottom: $space-1;
+    }
+    p {
+      font-family: $font-body;
+      font-size: $font-size-sm;
+      color: $color-ink-muted;
+      margin: 0;
+    }
+  }
+  &__empty {
+    text-align: center;
+    padding: $space-6 0;
+    font-family: $font-body;
+    color: $color-ink-muted;
+  }
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-3 0;
+    border-bottom: 1px solid $color-border;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  &__item-image {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: $radius-sm;
+    flex-shrink: 0;
+  }
+  &__item-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-family: $font-body;
+  }
+  &__item-meta {
+    font-size: $font-size-xs;
+    color: $color-ink-muted;
+  }
+  &__actions {
+    display: flex;
+    gap: $space-2;
+    flex-shrink: 0;
+  }
+
+  &__button {
+    padding: $space-2 $space-3;
+    border: none;
+    border-radius: $radius-sm;
+    background: $color-brand;
+    color: #fff;
+    font-family: $font-body;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    &:hover {
+      background: $color-brand-strong;
+    }
+    &--ghost {
+      background: transparent;
+      color: $color-ink-muted;
+      border: 1px solid $color-border;
+      &:hover {
+        background: #fdecea;
+        color: #b3261e;
+        border-color: #b3261e;
+      }
+    }
+  }
+
+  .admin__item--card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: $space-4;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    margin-bottom: $space-3;
+  }
+
+  .admin__seller-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-3;
+    gap: $space-3;
+    flex-wrap: wrap;
+
+    strong {
+      font-family: $font-display;
+      font-size: $font-size-base;
+      display: block;
+    }
+  }
+
+  .admin__badge {
+    display: inline-block;
+    font-family: $font-body;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    padding: 2px $space-2;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-pill;
+    color: $color-ink-muted;
+    margin-top: 2px;
+  }
+
+  .admin__seller-detail {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    padding-top: $space-3;
+    border-top: 1px solid $color-border;
+  }
+
+  .admin__detail-row {
+    display: flex;
+    gap: $space-4;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+
+    &--full {
+      flex-direction: column;
+      gap: $space-1;
+    }
+  }
+
+  .admin__detail-label {
+    min-width: 120px;
+    color: $color-ink-muted;
+    flex-shrink: 0;
+    font-weight: $font-weight-medium;
+  }
+
+  .admin__detail-text {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink;
+    margin: 0;
+    line-height: $line-height-normal;
+  }
+}

@@ -1,4 +1,6 @@
-import { Component, computed,inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { formatCurrency } from '../../../shared/utilities/currency';
 import { CurrencyConfigService } from '../../../core/services/currency-config.service';
 import { futureValueLumpsum, GrowthResult } from '../../../core/services/financial-calc-engine';
@@ -6,6 +8,7 @@ import { futureValueLumpsum, GrowthResult } from '../../../core/services/financi
 @Component({
   selector: 'app-fd-calculator',
   standalone: true,
+  imports: [MatFormFieldModule, MatSelectModule],
   templateUrl: './fd-calculator.html',
   styleUrl: './fd-calculator.scss',
 })

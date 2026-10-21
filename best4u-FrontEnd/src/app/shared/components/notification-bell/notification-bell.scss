@@ -1,0 +1,94 @@
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+.notif-bell {
+  position: relative;
+
+  &__btn {
+    position: relative;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: $space-1;
+    line-height: 1;
+  }
+
+  &__count {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    background: #b3261e;
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: $font-weight-bold;
+    border-radius: $radius-pill;
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+  }
+
+  &__panel {
+    position: absolute;
+    top: calc(100% + #{$space-2});
+    right: 0;
+    width: 300px;
+    background: $color-surface-raised;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    z-index: 200;
+    overflow: hidden;
+  }
+
+  &__header {
+    padding: $space-3 $space-4;
+    border-bottom: 1px solid $color-border;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+  }
+
+  &__empty {
+    padding: $space-4;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__item {
+    display: block;
+    width: 100%;
+    padding: $space-3 $space-4;
+    background: none;
+    border: none;
+    border-bottom: 1px solid $color-border;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.1s;
+
+    &:last-child {
+      border-bottom: none;
+    }
+    &:hover {
+      background: $color-surface;
+    }
+
+    &--unread {
+      background: rgba(15, 82, 87, 0.04);
+    }
+  }
+
+  &__msg {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink;
+    display: block;
+    line-height: $line-height-normal;
+  }
+}

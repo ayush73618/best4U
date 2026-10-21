@@ -1,0 +1,19 @@
+// copy-button.scss
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+.copy-button {
+  padding: $space-1 $space-3;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: $color-surface;
+  color: $color-ink-muted;
+  font-family: $font-body;
+  font-size: $font-size-xs;
+  cursor: pointer;
+  &:hover {
+    color: $color-ink;
+    border-color: $color-ink-muted;
+  }
+}

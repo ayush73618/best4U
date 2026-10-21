@@ -1,0 +1,109 @@
+<main class="travel-page">
+  <a class="travel-page__back" routerLink="/">&larr; Back to Best4U</a>
+
+  <section class="travel" aria-label="Your trips">
+    <header class="travel__header">
+      <h1>Your trips</h1>
+      <p>Part of BTr4U — Best Trip 4 U</p>
+    </header>
+
+    @if (!showForm()) {
+    <button class="travel__button" type="button" (click)="showForm.set(true)">
+      + New trip
+    </button>
+    } @else {
+    <div class="travel__form">
+      <div class="travel__field">
+        <label for="tripName">Trip name</label>
+        <input
+          id="tripName"
+          type="text"
+          placeholder="e.g. Bali 2026"
+          [value]="name()"
+          (input)="onNameInput($any($event.target).value)"
+        />
+      </div>
+      <div class="travel__field">
+        <label for="destination">Destination</label>
+        <input
+          id="destination"
+          type="text"
+          placeholder="e.g. Bali, Indonesia"
+          [value]="destination()"
+          (input)="onDestinationInput($any($event.target).value)"
+        />
+      </div>
+      <div class="travel__row">
+        <div class="travel__field travel__field--grow">
+          <label for="startDate">Start date</label>
+          <input
+            id="startDate"
+            type="date"
+            [value]="startDate()"
+            (input)="onStartDateInput($any($event.target).value)"
+          />
+        </div>
+        <div class="travel__field travel__field--grow">
+          <label for="endDate">End date</label>
+          <input
+            id="endDate"
+            type="date"
+            [value]="endDate()"
+            (input)="onEndDateInput($any($event.target).value)"
+          />
+        </div>
+      </div>
+      <div class="travel__field">
+        <label for="currency">Budget currency (ISO code)</label>
+        <input
+          id="currency"
+          type="text"
+          placeholder="USD"
+          [value]="currency()"
+          (input)="onCurrencyInput($any($event.target).value)"
+        />
+      </div>
+      <div class="travel__row">
+        <button class="travel__button" type="button" (click)="createTrip()">
+          Create trip
+        </button>
+        <button
+          class="travel__button travel__button--ghost"
+          type="button"
+          (click)="showForm.set(false)"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+    } @if (loading()) {
+    <p class="travel__empty">Loading your trips...</p>
+    } @else if (trips().length === 0) {
+    <p class="travel__empty">No trips yet — create your first one above.</p>
+    } @else {
+    <ul class="travel__trip-list">
+      @for (trip of trips(); track trip.id) {
+      <li class="travel__trip-card" (click)="openTrip(trip.id)">
+        <div class="travel__trip-info">
+          <strong>{{ trip.name }}</strong>
+          @if (trip.destination) { <span>{{ trip.destination }}</span> } @if
+          (trip.startDate) {
+          <span
+            >{{ trip.startDate }}{{ trip.endDate ? ' – ' + trip.endDate : ''
+            }}</span
+          >
+          }
+        </div>
+        <button
+          class="travel__button travel__button--ghost"
+          type="button"
+          (click)="deleteTrip(trip.id, $event)"
+        >
+          Delete
+        </button>
+      </li>
+      }
+    </ul>
+    }
+  </section>
+</main>

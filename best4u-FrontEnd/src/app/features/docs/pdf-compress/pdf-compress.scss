@@ -1,1 +1,7 @@
 @use "assets/styles/docs" as *;
+
+.docs__mat-field {
+  width: 280px !important;
+  --mat-form-field-container-height: 1.5rem !important;
+  --mat-form-field-container-vertical-padding: 0.4rem !important;
+}

@@ -1,0 +1,65 @@
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+.toast-container {
+  position: fixed;
+  bottom: $space-5;
+  right: $space-5;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  pointer-events: all;
+  min-width: 260px;
+  max-width: 360px;
+  color: #fff;
+
+  &--success {
+    background: #1e7e34;
+  }
+  &--error {
+    background: #b3261e;
+  }
+  &--info {
+    background: $color-brand;
+  }
+
+  &__icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+    font-weight: $font-weight-bold;
+  }
+
+  &__message {
+    flex: 1;
+    line-height: $line-height-normal;
+  }
+}
+
+@media (max-width: 480px) {
+  .toast-container {
+    left: $space-3;
+    right: $space-3;
+    bottom: $space-3;
+  }
+
+  .toast {
+    min-width: unset;
+    max-width: 100%;
+  }
+}

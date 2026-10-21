@@ -1,0 +1,32 @@
+<!-- uuid-generator.html -->
+<section class="dev" aria-label="UUID Generator">
+  <header class="dev__header">
+    <h1>UUID Generator</h1>
+    <p>Part of BC4U — Best Code 4 U</p>
+  </header>
+
+  <div class="dev__option-row">
+    <label for="count">How many</label>
+    <input
+      id="count"
+      type="number"
+      min="1"
+      max="50"
+      [value]="count()"
+      (input)="onCountInput($any($event.target).value)"
+    />
+    <button class="dev__button" type="button" (click)="generate()">
+      Generate
+    </button>
+  </div>
+
+  <div class="dev__output-header">
+    <label>UUIDs (v4)</label><app-copy-button [text]="allAsText()" />
+  </div>
+  <textarea
+    class="dev__textarea dev__textarea--output"
+    rows="8"
+    readonly
+    [value]="allAsText()"
+  ></textarea>
+</section>

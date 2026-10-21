@@ -41,7 +41,7 @@ export class AuthService {
       .pipe(tap((res) => this.storeSession(res.data)));
   }
 
-  login(payload: LoginPayload): Observable<ApiResponse<AuthResponseData>> {
+    login(payload: LoginPayload): Observable<ApiResponse<AuthResponseData>> {
     return this.http
       .post<ApiResponse<AuthResponseData>>(`${environment.apiBaseUrl}/auth/login`, payload)
       .pipe(tap((res) => this.storeSession(res.data)));
@@ -74,5 +74,34 @@ export class AuthService {
     } catch {
       return null;
     }
+  }
+
+    // Updates the local signal + localStorage immediately after a
+  // successful "apply for seller" call, without a second network round
+  // trip - we already know the outcome, no need to re-fetch it.
+  markSellerApplicationPending(): void {
+    const user = this.currentUser();
+    if (!user) return;
+    const updated: User = { ...user, sellerStatus: 'PENDING' };
+    this.currentUser.set(updated);
+    localStorage.setItem(USER_KEY, JSON.stringify(updated));
+  }
+
+    // Called after a profile update to keep the stored session in sync
+  // without a full re-login. Only updates the fields the profile form
+  // can change — email and roles are never user-editable.
+  refreshFromResponse(data: { token: string; firstName: string; lastName: string }): void {
+    const current = this.currentUser();
+    if (!current) return;
+
+    const updated: User = {
+      ...current,
+      firstName: data.firstName,
+      lastName: data.lastName,
+    };
+
+    localStorage.setItem(TOKEN_KEY, data.token);
+    localStorage.setItem(USER_KEY, JSON.stringify(updated));
+    this.currentUser.set(updated);
   }
 }

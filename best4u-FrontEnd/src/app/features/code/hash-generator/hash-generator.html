@@ -1,0 +1,45 @@
+<!-- hash-generator.html -->
+<section class="dev" aria-label="Hash Generator">
+  <header class="dev__header">
+    <h1>Hash Generator</h1>
+    <p>Part of BC4U — Best Code 4 U</p>
+  </header>
+
+  <div class="dev__field">
+    <label for="hashInput">Text to hash</label>
+    <textarea
+      id="hashInput"
+      class="dev__textarea"
+      rows="4"
+      [value]="input()"
+      (input)="onInput($any($event.target).value)"
+    ></textarea>
+  </div>
+
+  @if (hashes(); as h) {
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>MD5</label><app-copy-button [text]="h.md5" />
+    </div>
+    <input class="dev__output-line" readonly [value]="h.md5" />
+  </div>
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>SHA-1</label><app-copy-button [text]="h.sha1" />
+    </div>
+    <input class="dev__output-line" readonly [value]="h.sha1" />
+  </div>
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>SHA-256</label><app-copy-button [text]="h.sha256" />
+    </div>
+    <input class="dev__output-line" readonly [value]="h.sha256" />
+  </div>
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>SHA-512</label><app-copy-button [text]="h.sha512" />
+    </div>
+    <input class="dev__output-line" readonly [value]="h.sha512" />
+  </div>
+  }
+</section>

@@ -1,0 +1,66 @@
+<!-- timestamp-converter.html -->
+<section class="dev" aria-label="Timestamp Converter">
+  <header class="dev__header">
+    <h1>Timestamp Converter</h1>
+    <p>Part of BC4U — Best Code 4 U</p>
+  </header>
+
+  <div class="dev__field">
+    <label for="epochInput">Epoch (seconds or milliseconds)</label>
+    <div class="dev__row">
+      <input
+        id="epochInput"
+        type="text"
+        [value]="epochInput()"
+        (input)="onEpochInput($any($event.target).value); convertFromEpoch()"
+      />
+      <button
+        class="dev__button dev__button--ghost"
+        type="button"
+        (click)="useNow()"
+      >
+        Now
+      </button>
+    </div>
+  </div>
+
+  @if (epochError()) {
+  <p class="dev__validation">{{ epochError() }}</p>
+  } @else if (localResult()) {
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>Local time</label><app-copy-button [text]="localResult()" />
+    </div>
+    <input class="dev__output-line" readonly [value]="localResult()" />
+  </div>
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>UTC</label><app-copy-button [text]="utcResult()" />
+    </div>
+    <input class="dev__output-line" readonly [value]="utcResult()" />
+  </div>
+  }
+
+  <hr class="dev__divider" />
+
+  <div class="dev__field">
+    <label for="dateInput">Date & time</label>
+    <input
+      id="dateInput"
+      type="datetime-local"
+      [value]="dateInput()"
+      (input)="onDateInput($any($event.target).value); convertFromDate()"
+    />
+  </div>
+
+  @if (dateError()) {
+  <p class="dev__validation">{{ dateError() }}</p>
+  } @else if (epochResult()) {
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>Epoch (seconds)</label><app-copy-button [text]="epochResult()" />
+    </div>
+    <input class="dev__output-line" readonly [value]="epochResult()" />
+  </div>
+  }
+</section>

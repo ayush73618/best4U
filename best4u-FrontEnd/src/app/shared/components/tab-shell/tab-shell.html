@@ -1,0 +1,26 @@
+<!-- tab-shell.html (replace) -->
+<main [class]="cssPrefix">
+  <div [class]="cssPrefix + '__topbar'">
+    <a [class]="cssPrefix + '__back'" routerLink="/">&larr; Back to Best4U</a>
+    @if (umbrella) {
+    <app-umbrella-switcher
+      [umbrella]="umbrella"
+      [currentBrandId]="currentBrandId"
+    />
+    }
+  </div>
+
+  <nav [class]="cssPrefix + '__tabs'" [attr.aria-label]="ariaLabel">
+    @for (tab of tabs; track tab.id) {
+    <a
+      [class]="cssPrefix + '__tab'"
+      [routerLink]="tab.path"
+      [routerLinkActive]="cssPrefix + '__tab--active'"
+    >
+      {{ tab.label }}
+    </a>
+    }
+  </nav>
+
+  <router-outlet></router-outlet>
+</main>

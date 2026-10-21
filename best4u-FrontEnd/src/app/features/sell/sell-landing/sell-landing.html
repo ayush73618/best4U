@@ -1,0 +1,322 @@
+<main class="sell-page">
+  @switch (step()) { @case ('intro') {
+  <div class="sell-hero">
+    <div class="sell-hero__content">
+      <span class="sell-hero__eyebrow">Sell on Best4U</span>
+      <h1 class="sell-hero__title">Turn what you sell into what people find</h1>
+      <p class="sell-hero__sub">
+        Reach thousands of shoppers on Best4U. List your products, manage your
+        inventory, and grow your business — all from one dashboard.
+      </p>
+      <button
+        class="sell-btn sell-btn--primary sell-btn--lg"
+        type="button"
+        (click)="startForm()"
+      >
+        Apply to become a seller
+      </button>
+    </div>
+    <div class="sell-hero__stats">
+      <div class="sell-stat">
+        <span class="sell-stat__value">Free</span>
+        <span class="sell-stat__label">to list products</span>
+      </div>
+      <div class="sell-stat">
+        <span class="sell-stat__value">48h</span>
+        <span class="sell-stat__label">review turnaround</span>
+      </div>
+      <div class="sell-stat">
+        <span class="sell-stat__value">₹0</span>
+        <span class="sell-stat__label">upfront cost</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="sell-benefits">
+    <h2>Why sell on Best4U?</h2>
+    <div class="sell-benefits__grid">
+      <div class="sell-benefit">
+        <span class="sell-benefit__icon">🛒</span>
+        <h3>Real shoppers, ready to buy</h3>
+        <p>
+          Your listings appear right inside Best4U's product catalog alongside
+          curated inventory.
+        </p>
+      </div>
+      <div class="sell-benefit">
+        <span class="sell-benefit__icon">📸</span>
+        <h3>Showcase your products</h3>
+        <p>
+          Upload unlimited images per product. Buyers can see every angle before
+          they add to cart.
+        </p>
+      </div>
+      <div class="sell-benefit">
+        <span class="sell-benefit__icon">✅</span>
+        <h3>Reviewed, trusted listings</h3>
+        <p>
+          Every listing is reviewed before going live. Shoppers trust the
+          catalog because we keep it clean.
+        </p>
+      </div>
+      <div class="sell-benefit">
+        <span class="sell-benefit__icon">📊</span>
+        <h3>Your own dashboard</h3>
+        <p>
+          Track your listings, manage stock, and see order history — all from
+          your seller dashboard.
+        </p>
+      </div>
+    </div>
+  </section>
+  } @case ('form') {
+  <div class="sell-form-wrap">
+    <header class="sell-form-wrap__header">
+      <h1>Seller application</h1>
+      <p>
+        This takes about 3 minutes. We'll review and respond within 48 hours.
+      </p>
+    </header>
+
+    <div class="sell-form">
+      <!-- Section 1: Shop identity -->
+      <fieldset class="sell-form__section">
+        <legend>Your shop</legend>
+
+        <div class="sell-form__field">
+          <label for="shopName"
+            >Shop name <span class="sell-form__req">*</span></label
+          >
+          <input
+            id="shopName"
+            type="text"
+            placeholder="e.g. AK Electronics"
+            [value]="shopName()"
+            (input)="set('shopName', $any($event.target).value)"
+          />
+          <span class="sell-form__hint"
+            >This is what shoppers will see as "Sold by ___"</span
+          >
+        </div>
+
+        <div class="sell-form__field">
+          <label>Business type <span class="sell-form__req">*</span></label>
+          <div class="sell-form__radio-group">
+            @for (type of [['INDIVIDUAL','Individual /
+            Freelancer'],['SMALL_BUSINESS','Small
+            business'],['BRAND','Established brand']]; track type[0]) {
+            <label
+              class="sell-form__radio"
+              [class.sell-form__radio--selected]="businessType() === type[0]"
+            >
+              <input
+                type="radio"
+                name="businessType"
+                [value]="type[0]"
+                [checked]="businessType() === type[0]"
+                (change)="set('businessType', type[0])"
+              />
+              {{ type[1] }}
+            </label>
+            }
+          </div>
+        </div>
+
+        <div class="sell-form__field">
+          <label for="primaryCategory">Primary category</label>
+          <select
+            id="primaryCategory"
+            [value]="primaryCategory()"
+            (change)="set('primaryCategory', $any($event.target).value)"
+          >
+            <option value="">Select a category (optional)</option>
+            @for (cat of categories(); track cat.id) {
+            <option [value]="cat.name">{{ cat.name }}</option>
+            }
+          </select>
+        </div>
+      </fieldset>
+
+      <!-- Section 2: Contact -->
+      <fieldset class="sell-form__section">
+        <legend>Contact &amp; address</legend>
+
+        <div class="sell-form__field">
+          <label for="businessPhone"
+            >Business phone <span class="sell-form__req">*</span></label
+          >
+          <input
+            id="businessPhone"
+            type="tel"
+            placeholder="+91 98765 43210"
+            [value]="businessPhone()"
+            (input)="set('businessPhone', $any($event.target).value)"
+          />
+        </div>
+
+        <div class="sell-form__field">
+          <label for="businessAddress">Business address</label>
+          <textarea
+            id="businessAddress"
+            rows="2"
+            placeholder="Street, City, State, PIN"
+            [value]="businessAddress()"
+            (input)="set('businessAddress', $any($event.target).value)"
+          ></textarea>
+        </div>
+
+        <div class="sell-form__field">
+          <label for="gstNumber">GST number</label>
+          <input
+            id="gstNumber"
+            type="text"
+            placeholder="22AAAAA0000A1Z5 (optional)"
+            [value]="gstNumber()"
+            (input)="set('gstNumber', $any($event.target).value)"
+          />
+        </div>
+      </fieldset>
+
+      <!-- Section 3: Payout -->
+      <fieldset class="sell-form__section">
+        <legend>
+          Payout details
+          <span class="sell-form__optional"
+            >(optional now, required before first payout)</span
+          >
+        </legend>
+
+        <div class="sell-form__row">
+          <div class="sell-form__field">
+            <label for="bankAccountName">Account holder name</label>
+            <input
+              id="bankAccountName"
+              type="text"
+              [value]="bankAccountName()"
+              (input)="set('bankAccountName', $any($event.target).value)"
+            />
+          </div>
+          <div class="sell-form__field">
+            <label for="bankAccountNumber">Account number</label>
+            <input
+              id="bankAccountNumber"
+              type="text"
+              [value]="bankAccountNumber()"
+              (input)="set('bankAccountNumber', $any($event.target).value)"
+            />
+          </div>
+        </div>
+
+        <div class="sell-form__row">
+          <div class="sell-form__field">
+            <label for="bankIfscCode">IFSC code</label>
+            <input
+              id="bankIfscCode"
+              type="text"
+              [value]="bankIfscCode()"
+              (input)="set('bankIfscCode', $any($event.target).value)"
+            />
+          </div>
+          <div class="sell-form__field">
+            <label for="upiId">UPI ID (alternative)</label>
+            <input
+              id="upiId"
+              type="text"
+              placeholder="yourname@upi"
+              [value]="upiId()"
+              (input)="set('upiId', $any($event.target).value)"
+            />
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Section 4: Why -->
+      <fieldset class="sell-form__section">
+        <legend>Tell us about yourself</legend>
+        <div class="sell-form__field">
+          <label for="why"
+            >Why do you want to sell on Best4U?
+            <span class="sell-form__req">*</span></label
+          >
+          <textarea
+            id="why"
+            rows="4"
+            placeholder="Tell us about your products, your business, and what you'd like to sell..."
+            [value]="whyDoYouWantToSell()"
+            (input)="set('whyDoYouWantToSell', $any($event.target).value)"
+          ></textarea>
+        </div>
+      </fieldset>
+
+      @if (errorMessage()) {
+      <p class="sell-form__error">{{ errorMessage() }}</p>
+      }
+
+      <div class="sell-form__actions">
+        <button
+          class="sell-btn sell-btn--primary"
+          type="button"
+          [disabled]="submitting()"
+          (click)="submit()"
+        >
+          {{ submitting() ? 'Submitting...' : 'Submit application' }}
+        </button>
+        <button
+          class="sell-btn sell-btn--ghost"
+          type="button"
+          (click)="step.set('intro')"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+  } @case ('submitted') {
+  <div class="sell-status sell-status--success">
+    <span class="sell-status__icon">🎉</span>
+    <h1>Application received!</h1>
+    <p>
+      We'll review your application and get back to you within 48 hours. You'll
+      see the status update in your account menu.
+    </p>
+    <a class="sell-btn sell-btn--primary" routerLink="/">Back to Best4U</a>
+  </div>
+  } @case ('pending') {
+  <div class="sell-status sell-status--pending">
+    <span class="sell-status__icon">⏳</span>
+    <h1>Application under review</h1>
+    <p>
+      Your seller application is being reviewed. We'll update your account once
+      a decision is made — usually within 48 hours.
+    </p>
+    <a class="sell-btn sell-btn--ghost" routerLink="/">Back to Best4U</a>
+  </div>
+  } @case ('approved') {
+  <div class="sell-status sell-status--approved">
+    <span class="sell-status__icon">✅</span>
+    <h1>You're an approved seller!</h1>
+    <p>
+      Start listing your products and they'll appear in the Best4U catalog once
+      reviewed.
+    </p>
+    <div class="sell-status__actions">
+      <a class="sell-btn sell-btn--primary" routerLink="/shop/sell"
+        >List a product</a
+      >
+      <a class="sell-btn sell-btn--ghost" routerLink="/shop/my-listings"
+        >My listings</a
+      >
+    </div>
+  </div>
+  } @case ('rejected') {
+  <div class="sell-status sell-status--rejected">
+    <span class="sell-status__icon">❌</span>
+    <h1>Application not approved</h1>
+    <p>
+      Unfortunately your application wasn't approved this time. If you'd like to
+      reapply with updated information, please contact support.
+    </p>
+    <a class="sell-btn sell-btn--ghost" routerLink="/">Back to Best4U</a>
+  </div>
+  } }
+</main>

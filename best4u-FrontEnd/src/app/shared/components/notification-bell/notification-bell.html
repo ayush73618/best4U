@@ -1,0 +1,32 @@
+<div class="notif-bell">
+  <button
+    class="notif-bell__btn"
+    type="button"
+    (click)="toggle()"
+    aria-label="Notifications"
+  >
+    🔔 @if (notifService.unreadCount() > 0) {
+    <span class="notif-bell__count">{{ notifService.unreadCount() }}</span>
+    }
+  </button>
+
+  @if (isOpen()) {
+  <div class="notif-bell__panel" [@fadeIn]>
+    <div class="notif-bell__header">
+      <strong>Notifications</strong>
+    </div>
+    @if (notifService.notifications().length === 0) {
+    <p class="notif-bell__empty">No notifications yet.</p>
+    } @else { @for (n of notifService.notifications(); track n.id) {
+    <button
+      class="notif-bell__item"
+      [class.notif-bell__item--unread]="!n.isRead"
+      type="button"
+      (click)="navigate(n.link)"
+    >
+      <span class="notif-bell__msg">{{ n.message }}</span>
+    </button>
+    } }
+  </div>
+  }
+</div>

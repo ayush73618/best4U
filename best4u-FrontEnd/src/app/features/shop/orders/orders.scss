@@ -1,0 +1,182 @@
+@use "assets/styles/shop" as *;
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+.order-card {
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $space-4;
+  margin-bottom: $space-4;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: $space-4;
+    gap: $space-3;
+    flex-wrap: wrap;
+  }
+
+  &__id {
+    font-family: $font-display;
+    font-weight: $font-weight-bold;
+    display: block;
+  }
+
+  &__date {
+    font-family: $font-body;
+    font-size: $font-size-xs;
+    color: $color-ink-muted;
+    display: block;
+    margin-top: 2px;
+  }
+
+  &__status {
+    font-family: $font-body;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-xs;
+    padding: $space-1 $space-3;
+    border-radius: $radius-pill;
+    white-space: nowrap;
+
+    &--PAID {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    &--PENDING {
+      background: #fff4e5;
+      color: #a15c00;
+    }
+    &--SHIPPED {
+      background: #e8f0fe;
+      color: #1a56db;
+    }
+    &--DELIVERED {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    &--FAILED,
+    &--CANCELLED {
+      background: #fdecea;
+      color: #b3261e;
+    }
+  }
+
+  &__next {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+    margin: 0 0 $space-3;
+  }
+
+  &__items {
+    list-style: none;
+    margin: $space-3 0;
+    padding: 0;
+    border-top: 1px solid $color-border;
+    padding-top: $space-3;
+  }
+
+  &__item-row {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-2 0;
+  }
+
+  &__item-image {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: $radius-sm;
+    flex-shrink: 0;
+  }
+
+  &__item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+  }
+
+  &__item-meta {
+    color: $color-ink-muted;
+    font-size: $font-size-xs;
+  }
+
+  &__total {
+    font-family: $font-body;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-base;
+    padding-top: $space-3;
+    border-top: 1px solid $color-border;
+    margin-top: $space-2;
+  }
+}
+
+// ── Order progress tracker ─────────────────────────────────────────────────
+.order-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-bottom: $space-4;
+  position: relative;
+
+  // Connecting line between steps
+  &::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    height: 2px;
+    background: $color-border;
+    z-index: 0;
+  }
+
+  &__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-2;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+
+    span {
+      font-family: $font-body;
+      font-size: $font-size-xs;
+      color: $color-ink-muted;
+      text-align: center;
+    }
+
+    &--done .order-track__dot {
+      background: $color-brand;
+      border-color: $color-brand;
+    }
+
+    &--active .order-track__dot {
+      background: $color-surface-raised;
+      border-color: $color-brand;
+      border-width: 3px;
+    }
+
+    &--done span,
+    &--active span {
+      color: $color-ink;
+      font-weight: $font-weight-medium;
+    }
+  }
+
+  &__dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: $color-surface;
+    border: 2px solid $color-border;
+    flex-shrink: 0;
+  }
+}

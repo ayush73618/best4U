@@ -1,0 +1,53 @@
+<!-- jwt-decoder.html -->
+<section class="dev" aria-label="JWT Decoder">
+  <header class="dev__header">
+    <h1>JWT Decoder</h1>
+    <p>Part of BC4U — Best Code 4 U</p>
+  </header>
+
+  <p class="dev__note">
+    Decodes only — this never verifies the signature, and nothing here leaves
+    your browser.
+  </p>
+
+  <div class="dev__field">
+    <label for="jwtInput">Paste a JWT</label>
+    <textarea
+      id="jwtInput"
+      class="dev__textarea"
+      rows="4"
+      placeholder="eyJhbGciOi..."
+      [value]="token()"
+      (input)="onTokenInput($any($event.target).value)"
+    ></textarea>
+  </div>
+
+  @if (decoded(); as d) { @if (d.error) {
+  <p class="dev__validation">{{ d.error }}</p>
+  } @else {
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>Header</label><app-copy-button [text]="d.header" />
+    </div>
+    <textarea
+      class="dev__textarea dev__textarea--output"
+      rows="4"
+      readonly
+      [value]="d.header"
+    ></textarea>
+  </div>
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>Payload</label><app-copy-button [text]="d.payload" />
+    </div>
+    <textarea
+      class="dev__textarea dev__textarea--output"
+      rows="8"
+      readonly
+      [value]="d.payload"
+    ></textarea>
+  </div>
+  @if (d.expiresAt) {
+  <p class="dev__note">Expires: {{ d.expiresAt }}</p>
+  } } }
+</section>

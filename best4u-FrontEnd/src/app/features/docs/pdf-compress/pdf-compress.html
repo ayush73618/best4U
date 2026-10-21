@@ -15,16 +15,25 @@
   }
 
   <div class="docs__option-row">
-    <label for="level">Compression level</label>
-    <select
-      id="level"
-      [value]="level()"
-      (change)="onLevelChange($any($event.target).value)"
+    <label>Compression level</label>
+    <mat-form-field
+      appearance="outline"
+      subscriptSizing="dynamic"
+      class="docs__mat-field"
     >
-      <option value="low">Low (best quality, larger file)</option>
-      <option value="medium">Medium</option>
-      <option value="high">High (smallest file, lower quality)</option>
-    </select>
+      <mat-select
+        aria-label="Compression level"
+        panelClass="pdf-compress-select"
+        [value]="level()"
+        (selectionChange)="onLevelChange($event.value)"
+      >
+        <mat-option value="low">Low (best quality, larger file)</mat-option>
+        <mat-option value="medium">Medium</mat-option>
+        <mat-option value="high"
+          >High (smallest file, lower quality)</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
   </div>
 
   @if (errorMessage()) {

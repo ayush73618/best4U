@@ -1,18 +1,20 @@
 package com.best4u.backend.user.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Value;
 
 import java.util.List;
+import com.best4u.backend.user.entity.SellerStatus;
 
-@Data
-@AllArgsConstructor
+@Value
+@Builder
 public class AuthResponse {
-    private String token;
-    private Long userId;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String mobileNumber;
-    private List<String> roles;
+    String token;
+    Long userId;
+    String firstName;
+    String lastName;
+    String email;
+    String mobileNumber;
+    List<String> roles;
+    SellerStatus sellerStatus;
 }

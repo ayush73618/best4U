@@ -1,0 +1,153 @@
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+.search-bar {
+  position: relative;
+  flex: 1;
+  max-width: 480px;
+
+  &__input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    position: absolute;
+    left: $space-3;
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+
+  &__input {
+    width: 100%;
+    padding: $space-2 $space-5 $space-2 2.2rem;
+    border: 1px solid $color-border;
+    border-radius: $radius-pill;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    background: $color-surface;
+    transition:
+      border-color 0.15s,
+      box-shadow 0.15s;
+
+    &:focus-visible {
+      border-color: $color-brand;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(15, 82, 87, 0.12);
+    }
+
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+  }
+
+  &__clear {
+    position: absolute;
+    right: $space-3;
+    background: none;
+    border: none;
+    color: $color-ink-muted;
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: 0;
+    line-height: 1;
+
+    &:hover {
+      color: $color-ink;
+    }
+  }
+
+  &__panel {
+    position: absolute;
+    top: calc(100% + #{$space-2});
+    left: 0;
+    right: 0;
+    background: $color-surface-raised;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: $space-2;
+    z-index: 200;
+    max-height: 380px;
+    overflow-y: auto;
+  }
+
+  &__state {
+    padding: $space-3 $space-2;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__result {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    width: 100%;
+    padding: $space-2 $space-2;
+    background: none;
+    border: none;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.1s;
+
+    &:hover {
+      background: $color-surface;
+    }
+
+    img {
+      width: 36px;
+      height: 36px;
+      object-fit: cover;
+      border-radius: $radius-sm;
+      flex-shrink: 0;
+    }
+  }
+
+  &__result-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  &__result-name {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__result-price {
+    font-family: $font-body;
+    font-size: $font-size-xs;
+    color: $color-ink-muted;
+  }
+
+  &__see-all {
+    width: 100%;
+    padding: $space-2 $space-2;
+    background: none;
+    border: none;
+    border-top: 1px solid $color-border;
+    margin-top: $space-1;
+    color: $color-brand;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

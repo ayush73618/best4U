@@ -1,0 +1,73 @@
+<h1 style="margin-bottom: 24px">Your orders</h1>
+
+@if (loading()) {
+<app-skeleton variant="list" [count]="3" />
+} @else if (orders().length === 0) {
+<app-empty-state
+  icon="📦"
+  title="No orders yet"
+  message="Once you place your first order it'll appear here. You can track shipping and view your purchase history."
+  actionLabel="Start shopping"
+  actionRoute="/shop"
+/>
+} @else { @for (order of orders(); track order.id) {
+<div class="order-card">
+  <!-- Header row -->
+  <div class="order-card__header">
+    <div>
+      <span class="order-card__id">Order #{{ order.id }}</span>
+      <span class="order-card__date"
+        >{{ order.createdAt | date: 'd MMM y' }}</span
+      >
+    </div>
+    <span
+      class="order-card__status"
+      [ngClass]="'order-card__status--' + order.status"
+    >
+      {{ statusLabel(order.status) }}
+    </span>
+  </div>
+
+  <!-- Progress tracker -->
+  <div class="order-track">
+    @for (step of ['PAID', 'SHIPPED', 'DELIVERED']; track step) {
+    <div
+      class="order-track__step"
+      [class.order-track__step--done]="isDone(order.status, step)"
+      [class.order-track__step--active]="order.status === step"
+    >
+      <div class="order-track__dot"></div>
+      <span>{{ statusLabel(step) }}</span>
+    </div>
+    }
+  </div>
+
+  @if (nextStep(order.status); as ns) {
+  <p class="order-card__next">{{ ns }}</p>
+  }
+
+  <!-- Item list -->
+  <ul class="order-card__items">
+    @for (item of order.items; track item.productId) {
+    <li class="order-card__item-row">
+      <img
+        class="order-card__item-image"
+        [src]="imageFor(item)"
+        [alt]="item.productName"
+      />
+      <div class="order-card__item-text">
+        <span>{{ item.productName }}</span>
+        <span class="order-card__item-meta">
+          {{ item.quantity }} × ₹{{ item.priceAtPurchase | number: '1.0-0' }}
+        </span>
+      </div>
+    </li>
+    }
+  </ul>
+
+  <!-- Total -->
+  <div class="order-card__total">
+    Total: ₹{{ order.totalAmount | number: '1.0-0' }}
+  </div>
+</div>
+} }

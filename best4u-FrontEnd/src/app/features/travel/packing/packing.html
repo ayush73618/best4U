@@ -1,0 +1,48 @@
+<section class="travel" aria-label="Packing checklist">
+  <header class="travel__header">
+    <h1>Packing checklist</h1>
+    <p>Part of BTr4U — Best Trip 4 U</p>
+  </header>
+
+  <div class="travel__row">
+    <input
+      type="text"
+      placeholder="Add an item, e.g. Passport"
+      [value]="newItemText()"
+      (input)="onNewItemInput($any($event.target).value)"
+      (keydown.enter)="addItem()"
+    />
+    <button class="travel__button" type="button" (click)="addItem()">
+      Add
+    </button>
+  </div>
+
+  @if (loading()) {
+  <p class="travel__empty">Loading checklist...</p>
+  } @else if (items().length === 0) {
+  <p class="travel__empty">
+    Nothing on your list yet — add your first item above.
+  </p>
+  } @else {
+  <ul class="travel__list">
+    @for (item of items(); track item.id) {
+    <li class="travel__item" [class.travel__item--done]="item.packed">
+      <input
+        type="checkbox"
+        [checked]="item.packed"
+        (change)="toggleItem(item.id)"
+      />
+      <span class="travel__item-text">{{ item.text }}</span>
+      <button
+        class="travel__button travel__button--ghost"
+        type="button"
+        (click)="deleteItem(item.id)"
+      >
+        ✕
+      </button>
+    </li>
+    }
+  </ul>
+  <p class="travel__note">{{ packedCount }} / {{ items().length }} packed</p>
+  }
+</section>

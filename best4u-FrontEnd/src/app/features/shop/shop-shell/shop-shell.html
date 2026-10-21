@@ -1,0 +1,25 @@
+<main class="shop-page">
+  <nav class="shop-nav">
+    <div class="shop-nav__categories">
+      <a
+        class="shop-nav__category"
+        routerLink="/shop"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="shop-nav__category--active"
+        >All</a
+      >
+      @for (category of categories(); track category.id) {
+      <a
+        class="shop-nav__category"
+        [routerLink]="['/shop']"
+        [queryParams]="{ categoryId: category.id }"
+        >{{ category.name }}</a
+      >
+      }
+    </div>
+
+    <app-umbrella-switcher umbrella="shopping" currentBrandId="bp4u" />
+  </nav>
+
+  <router-outlet></router-outlet>
+</main>

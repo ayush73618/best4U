@@ -1,4 +1,9 @@
 <app-header />
-<app-category-bar />
-<router-outlet />
+<div
+  class="page-outlet"
+  [@routeAnimations]="outlet.isActivated ? outlet.activatedRoute : ''"
+>
+  <router-outlet #outlet="outlet" />
+</div>
 <app-auth-modal />
+<app-toast />

@@ -1,88 +1,139 @@
-# best4U — Angular Frontend
+# Best4U Frontend
 
-Angular workspace scaffold for best4U, replacing the React app under
-`best4U-FrontEnd/`. This is the **structure**, built to hold everything in
-the platform roadmap (Shopping, Tools, Finance, Productivity, Documents,
-Developer, AI, ...) without needing to be reorganized every time a new
-module is added.
+Angular 22 application for the Best4U product suite. The app is built with standalone components, lazy-loaded feature routes, and Angular Material for select/input-heavy tool UIs.
 
-## Status: Phase 1 — Foundation (in progress)
+## Overview
 
-What's actually working right now: `npm install`, `ng serve`, and you get a
-page rendered by the `home` feature. That's it — everything else is folder
-structure with a `README.md` explaining what belongs there and why it isn't
-built yet. Nothing here should be mistaken for a finished feature.
+This frontend powers a multi-area utility platform with modules for:
 
-## Getting started (run locally — this was scaffolded without network access)
+- Home / app landing
+- Tools and calculators
+- Money calculators and financial planning
+- Work productivity features
+- Auth flow
+- Code utilities
+- Document tools (PDF, image processing)
+- Travel planning tools
+
+The app uses a modular route structure under `src/app/features` so each product area can grow independently.
+
+## Tech stack
+
+- Angular 22
+- Angular Material
+- RxJS
+- TypeScript
+- Standalone components
+- Signals for local component state
+- Zone-less change detection
+- HttpClient for API calls
+
+## Getting started
 
 ```bash
 npm install
-ng serve
+npm start
 ```
 
-Then open http://localhost:4200.
-
-**Before running:** check `ng version` after `npm install` — Angular 22 was
-current stable at the time this was scaffolded, but versions move fast;
-if a newer stable has shipped, it's worth confirming these files still
-match its `ng new` defaults (angular.json schema, zoneless bootstrapping)
-before building on top of them.
-
-## Folder structure
+Then open:
 
 ```text
-src/app/
-├── core/          — app-wide singletons: auth, guards, interceptors, services, models
-├── shared/        — reusable, feature-agnostic UI: components, directives, pipes, utilities
-├── layout/        — app shell: header, footer, sidebar
-├── platform/      — cross-cutting platform features: search, favorites, recently-used, dashboard
-└── features/      — one folder per module, lazy-loaded, self-contained
-    ├── home/      — the only feature with real code right now
-    └── auth/      — login/register — scaffolded, blocked on backend fixes
+http://localhost:4200
 ```
 
-Each empty folder has a `README.md` explaining what goes there, what it
-replaces from the React app (if anything), and what it's blocked on. See
-those files rather than guessing from the folder name.
+Production build:
 
-## Deliberate choices made here (and why)
+```bash
+npm run build
+```
 
-- **Standalone components, no NgModules** — current Angular default, and
-  there's no reason for this app to carry NgModule boilerplate.
-- **Signals + local state services, not NgRx** — the app is small; NgRx's
-  overhead isn't earning itself yet. Reconsider only if cross-module state
-  genuinely tangles later (see the vision doc's "avoid overengineering"
-  section).
-- **Zoneless change detection** — current Angular default direction; no
-  `zone.js` dependency.
-- **Local storage vs backend, decided per module up front**: Tools,
-  Finance, Productivity, Documents, Developer → local storage, no backend
-  calls at all. Auth, Shopping (cart/orders), Dashboard sync → backend.
-  This is a cost decision (Section 8/9 of the vision doc), not an
-  afterthought.
-- **Design tokens left empty on purpose** (`src/assets/styles/_colors.scss`
-  etc.) — filling them with placeholder colors now would just mean redoing
-  them deliberately later. They get decided when we actually build the
-  design system, not auto-generated here.
+## Project structure
 
-## What's explicitly NOT here yet, and why
+```text
+src/
+├── app/
+│   ├── core/
+│   │   ├── auth/
+│   │   ├── guards/
+│   │   ├── interceptors/
+│   │   ├── models/
+│   │   └── services/
+│   ├── features/
+│   │   ├── auth/
+│   │   ├── calculator/
+│   │   ├── code/
+│   │   ├── docs/
+│   │   ├── home/
+│   │   ├── money/
+│   │   ├── tools/
+│   │   ├── travel/
+│   │   └── work/
+│   ├── layout/
+│   ├── platform/
+│   ├── shared/
+│   ├── app.config.ts
+│   ├── app.routes.ts
+│   ├── app.ts
+│   └── app.html
+│
+├── assets/
+│   └── styles/
+├── environments/
+├── main.ts
+└── styles.scss
+```
 
-- No `finance/`, `tools/`, `productivity/`, `documents/`, `developer/`,
-  `ai/`, or `shopping/` feature folders yet. Per the vision doc's own rule
-  ("do not attempt to build everything immediately"), these get added one
-  at a time, each as its own phase — not scaffolded speculatively.
-- No real `core/auth` or `features/auth` implementation yet. Building
-  login/register against the *current* backend would mean building it
-  against plaintext passwords and a `User` entity with no `roles` field —
-  both are being fixed on the backend side (Track A) first, and the exact
-  request/response shape needs to be agreed (the API contract) before this
-  is wired up for real.
-- No design system (colors/type/spacing tokens, shared Button/Card/Modal
-  components) yet — intentionally sequenced right after this, since layout/
-  and shared/ both depend on it.
+## Routing model
 
-## Assets carried over from the React app
+The app uses a route-first structure. Top-level routes are registered in `src/app/app.routes.ts` and feature-specific child routes are defined in each feature module.
 
-The favicon set in `public/` was copied from the existing React app's
-`src/Assets/favicon_io/` rather than regenerated — an existing, working
-asset with no reason to be redone.
+Current major routes include:
+
+- `/` → home
+- `/tools` → tool shell
+- `/money` → calculators and financial tools
+- `/work` → productivity workflows
+- `/auth` → login/register
+- `/docs` → PDF / image tools
+- `/code` → developer utilities
+- `/travel` → trip planner and travel utilities
+
+Examples:
+
+- `src/app/features/money/money.routes.ts`
+- `src/app/features/docs/docs.routes.ts`
+- `src/app/features/code/code.routes.ts`
+- `src/app/features/travel/travel.routes.ts`
+
+## Current implementation status
+
+This project is not just stubbed scaffolding anymore. It already contains usable feature implementations across several domains, including:
+
+- Money calculators (EMI, SIP, PPF, RD, FD, SWP)
+- PDF tools (merge, split, compress)
+- Image tools
+- Travel planners (trip list, itinerary, packing, budget, notes)
+- Code utilities (JSON formatter, JWT decoder, hash generator, URL encoder, UUID generator, etc.)
+
+The app is organized to keep each product area self-contained while sharing common layout and utility logic.
+
+## Architecture conventions
+
+- Standalone components are the default pattern.
+- Feature modules are lazy-loaded through route files.
+- Shared logic belongs in `core` and `shared`.
+- Domain utilities and API-facing services live in `core/services` and `core/models`.
+- Styling is centralized into SCSS style partials under `src/assets/styles`.
+- UI behavior is kept in component logic and signals, not in a global store.
+
+## Development notes
+
+- Prefer local state with signals for component-level data.
+- Use `loadComponent` / `loadChildren` for lazy routes.
+- Keep cross-cutting logic in `core/` and reusable UI in `shared/`.
+- Avoid adding one-off state to unrelated features.
+- Reuse shared design tokens from `src/assets/styles` rather than hardcoding repeated colors and spacing.
+
+## Future direction
+
+The frontend is designed to grow as a modular product suite. New areas should be added as route-based feature modules rather than by expanding the root app shell.

@@ -1,0 +1,8 @@
+@if (cartService.itemCount() > 0) {
+<a class="cart-badge" routerLink="/shop/cart" [@scaleIn]>
+  <span class="cart-badge__icon">🛒</span>
+  <span class="cart-badge__count" [@scaleIn]="cartService.itemCount()">
+    {{ cartService.itemCount() }}
+  </span>
+</a>
+}

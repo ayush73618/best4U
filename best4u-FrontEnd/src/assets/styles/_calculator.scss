@@ -51,6 +51,13 @@
       border-bottom-color: $color-brand;
     }
   }
+
+  &__topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-2;
+  }
 }
 
 .calc {
@@ -90,7 +97,7 @@
     input,
     select {
       width: 100%;
-      padding: $space-3;
+      padding: $space-2;
       border: 1px solid $color-border;
       border-radius: $radius-sm;
       font-family: $font-body;
@@ -116,6 +123,16 @@
       color: $color-ink-muted;
       margin-top: $space-1;
     }
+  }
+
+  &__mat-field {
+    width: 140px;
+    --mat-form-field-container-height: 1.5rem;
+    --mat-form-field-container-vertical-padding: 0.4rem;
+  }
+
+  ::ng-deep .mat-mdc-option {
+    min-height: $mat-mdc-option-min-height;
   }
 
   &__validation {

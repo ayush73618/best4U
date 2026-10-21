@@ -1,0 +1,111 @@
+<section class="shop" aria-label="List a product">
+  @if (submitted()) {
+  <div class="shop-empty">
+    <p>Your product has been submitted for review.</p>
+    <button
+      class="shop-button"
+      type="button"
+      style="margin-top: 12px"
+      (click)="goToMyListings()"
+    >
+      View my listings
+    </button>
+  </div>
+  } @else {
+  <h1 style="margin-bottom: 16px">List a product</h1>
+
+  <div class="sell-form">
+    <div class="sell-form__field">
+      <label for="pName">Product name</label>
+      <input
+        id="pName"
+        type="text"
+        [value]="name()"
+        (input)="onNameInput($any($event.target).value)"
+      />
+    </div>
+
+    <div class="sell-form__field">
+      <label for="pDesc">Description</label>
+      <textarea
+        id="pDesc"
+        rows="4"
+        [value]="description()"
+        (input)="onDescriptionInput($any($event.target).value)"
+      ></textarea>
+    </div>
+
+    <div class="sell-form__row">
+      <div class="sell-form__field">
+        <label for="pPrice">Price (₹)</label>
+        <input
+          id="pPrice"
+          type="number"
+          min="0"
+          step="0.01"
+          [value]="price()"
+          (input)="onPriceInput($any($event.target).value)"
+        />
+      </div>
+      <div class="sell-form__field">
+        <label for="pStock">Stock quantity</label>
+        <input
+          id="pStock"
+          type="number"
+          min="0"
+          [value]="stockQuantity()"
+          (input)="onStockInput($any($event.target).value)"
+        />
+      </div>
+    </div>
+
+    <div class="sell-form__field">
+      <label for="pCategory">Category</label>
+      <select
+        id="pCategory"
+        [value]="categoryId()"
+        (change)="onCategoryChange($any($event.target).value)"
+      >
+        <option value="">Select a category</option>
+        @for (category of categories(); track category.id) {
+        <option [value]="category.id">{{ category.name }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="sell-form__field">
+      <label>Product images</label>
+      <app-file-dropzone
+        accept="image/*"
+        [multiple]="true"
+        label="Choose images"
+        (filesSelected)="onImagesSelected($event)"
+      />
+
+      @if (imagePreviews().length > 0) {
+      <div class="sell-form__previews">
+        @for (preview of imagePreviews(); track preview; let i = $index) {
+        <div class="sell-form__preview">
+          <img [src]="preview" alt="" />
+          <button type="button" (click)="removeImage(i)">✕</button>
+        </div>
+        }
+      </div>
+      }
+    </div>
+
+    @if (errorMessage()) {
+    <p class="sell-form__error">{{ errorMessage() }}</p>
+    }
+
+    <button
+      class="shop-button"
+      type="button"
+      [disabled]="submitting()"
+      (click)="submit()"
+    >
+      {{ submitting() ? 'Submitting...' : 'Submit for review' }}
+    </button>
+  </div>
+  }
+</section>

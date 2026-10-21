@@ -1,0 +1,75 @@
+/* account-menu.scss */
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+.account-menu {
+  position: relative;
+
+  &__trigger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: $font-body;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    color: $color-ink;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    &:hover {
+      color: $color-brand;
+    }
+  }
+  &__caret {
+    font-size: 0.7rem;
+  }
+
+  &__panel {
+    position: absolute;
+    top: calc(100% + #{$space-2});
+    right: 0;
+    background: $color-surface-raised;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    min-width: 180px;
+    padding: $space-2;
+    z-index: 100;
+  }
+
+  &__item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: $space-2 $space-3;
+    border-radius: $radius-sm;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      background: $color-surface;
+    }
+
+    em {
+      font-style: normal;
+      font-size: $font-size-xs;
+      color: $color-ink-muted;
+    }
+
+    &--disabled {
+      color: $color-ink-muted;
+      cursor: default;
+      &:hover {
+        background: none;
+      }
+    }
+    &--danger {
+      color: #b3261e;
+    }
+  }
+}

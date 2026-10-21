@@ -1,0 +1,41 @@
+<!-- color-converter.html -->
+<section class="dev" aria-label="Color Converter">
+  <header class="dev__header">
+    <h1>Color Converter</h1>
+    <p>Part of BC4U — Best Code 4 U</p>
+  </header>
+
+  <div class="dev__row">
+    <input
+      type="color"
+      [value]="isValid() ? hexInput() : '#000000'"
+      (input)="onColorPicked($any($event.target).value)"
+      class="dev__color-swatch"
+    />
+    <input
+      type="text"
+      placeholder="#3b82f6"
+      [value]="hexInput()"
+      (input)="onHexInput($any($event.target).value)"
+    />
+  </div>
+
+  @if (!isValid()) {
+  <p class="dev__validation">
+    Enter a valid 3 or 6-digit hex color, e.g. #3b82f6 or #fff.
+  </p>
+  } @else {
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>RGB</label><app-copy-button [text]="rgbText()" />
+    </div>
+    <input class="dev__output-line" readonly [value]="rgbText()" />
+  </div>
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>HSL</label><app-copy-button [text]="hslText()" />
+    </div>
+    <input class="dev__output-line" readonly [value]="hslText()" />
+  </div>
+  }
+</section>

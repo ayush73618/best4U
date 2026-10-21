@@ -1,5 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { environment } from '../../../../environments/environment';
 import { FileDropzone } from '../../../shared/components/file-dropzone/file-dropzone';
 import { ProgressBar } from '../../../shared/components/progress-bar/progress-bar';
@@ -9,7 +11,7 @@ import { validateFile } from '../../../shared/utilities/file-validation';
 @Component({
   selector: 'app-pdf-compress',
   standalone: true,
-  imports: [FileDropzone, ProgressBar],
+  imports: [FileDropzone, ProgressBar, MatFormFieldModule, MatSelectModule],
   templateUrl: './pdf-compress.html',
   styleUrl: './pdf-compress.scss',
 })

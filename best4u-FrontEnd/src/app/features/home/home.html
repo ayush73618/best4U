@@ -1,42 +1,116 @@
 <main class="home">
+  <!-- Hero -->
   <section class="home__hero">
-    <h1>What do you need today?</h1>
-    <p>
-      One place for everyday shopping, tools, and planning — search will land
-      here.
-    </p>
+    <div class="home__hero-content">
+      <h1 class="home__hero-title">What do you need today?</h1>
+      <p class="home__hero-sub">
+        Shopping, tools, and planning — all in one place.
+      </p>
+      <div class="home__hero-search">
+        <span class="home__hero-search-icon">🔍</span>
+        <input
+          type="search"
+          placeholder="Search products..."
+          [value]="heroQuery()"
+          (input)="heroQuery.set($any($event.target).value)"
+          (keydown)="onHeroKey($event)"
+        />
+        <button type="button" (click)="heroSearch()">Search</button>
+      </div>
+    </div>
+    <div class="home__hero-badges">
+      <span class="home__hero-badge">🛍 Shop</span>
+      <span class="home__hero-badge">🧮 Tools</span>
+      <span class="home__hero-badge">✈️ Travel</span>
+      <span class="home__hero-badge">💰 Finance</span>
+    </div>
   </section>
 
-  @for (umbrella of registry.umbrellas; track umbrella.id) {
-  <section class="home__umbrella" [attr.data-umbrella]="umbrella.id">
-    <header class="home__umbrella-header">
-      <h2>{{ umbrella.name }}</h2>
-      <p>{{ umbrella.tagline }}</p>
-    </header>
+  <!-- For You — logged-in users only -->
+  @if (authService.isAuthenticated() && quickCards().length > 0) {
+  <section class="home__section">
+    <h2 class="home__section-title">For you</h2>
+    <div class="home__quick-grid">
+      @for (card of quickCards(); track card.route) {
+      <a class="home__quick-card" [routerLink]="card.route">
+        <span class="home__quick-card-label">{{ card.label }}</span>
+        <span class="home__quick-card-value">{{ card.value }}</span>
+        <span class="home__quick-card-sub">{{ card.sub }}</span>
+      </a>
+      }
+    </div>
+  </section>
+  }
 
-    <div class="home__brand-list">
+  <!-- New arrivals -->
+  @if (featuredProducts().length > 0) {
+  <section class="home__section">
+    <div class="home__section-header">
+      <h2 class="home__section-title">New arrivals</h2>
+      <a class="home__section-link" routerLink="/shop">Browse all →</a>
+    </div>
+    <div class="home__product-rail">
+      @for (product of featuredProducts(); track product.id) {
+      <a
+        class="home__product-card"
+        [routerLink]="['/shop/products', product.id]"
+      >
+        <div class="home__product-card-image">
+          <img [src]="imageFor(product)" [alt]="product.name" />
+        </div>
+        <div class="home__product-card-info">
+          <span class="home__product-card-name">{{ product.name }}</span>
+          @if (product.reviewCount > 0) {
+          <span class="home__product-card-rating">
+            {{ stars(product.averageRating) }}
+            <small>({{ product.reviewCount }})</small>
+          </span>
+          }
+          <span class="home__product-card-price"
+            >₹{{ product.price | number: '1.0-0' }}</span
+          >
+        </div>
+      </a>
+      }
+    </div>
+  </section>
+  }
+
+  <!-- Umbrella sections -->
+  @for (umbrella of registry.umbrellas; track umbrella.id) {
+  <section
+    class="home__section home__umbrella"
+    [attr.data-umbrella]="umbrella.id"
+  >
+    <div class="home__section-header">
+      <div>
+        <h2 class="home__section-title">{{ umbrella.name }}</h2>
+        <p class="home__umbrella-tagline">{{ umbrella.tagline }}</p>
+      </div>
+    </div>
+    <div class="home__brand-grid">
       @for (brand of registry.brandsByUmbrella(umbrella.id); track brand.id) {
       @if (brand.status === 'active') {
       <a
         class="home__brand-card home__brand-card--active"
         [routerLink]="brand.route"
       >
-        <div class="home__brand-card-header">
-          <h3>{{ brand.name }}</h3>
-          <span class="home__brand-open">Open →</span>
-        </div>
-        <p class="home__brand-code">{{ brand.code }}</p>
-        <p class="home__brand-tagline">{{ brand.tagline }}</p>
+        <span class="home__brand-icon"
+          >{{ BRAND_ICONS[brand.id] ?? '⚡' }}</span
+        >
+        <span class="home__brand-name">{{ brand.shortLabel }}</span>
+        <span class="home__brand-tagline">{{ brand.tagline }}</span>
+        <span class="home__brand-cta">Open →</span>
       </a>
       } @else {
-      <article class="home__brand-card">
-        <div class="home__brand-card-header">
-          <h3>{{ brand.name }}</h3>
-          <span class="home__brand-badge">Coming soon</span>
-        </div>
-        <p class="home__brand-code">{{ brand.code }}</p>
-        <p class="home__brand-tagline">{{ brand.tagline }}</p>
-      </article>
+      <div class="home__brand-card home__brand-card--planned">
+        <span class="home__brand-icon"
+          >{{ BRAND_ICONS[brand.id] ?? '⚡' }}</span
+        >
+        <span class="home__brand-name">{{ brand.shortLabel }}</span>
+        <span class="home__brand-tagline">{{ brand.tagline }}</span>
+        <span class="home__brand-badge">Soon</span>
+      </div>
       } }
     </div>
   </section>

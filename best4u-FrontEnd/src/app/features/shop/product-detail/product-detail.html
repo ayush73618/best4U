@@ -1,0 +1,253 @@
+<div class="product-detail-page">
+  <a class="product-detail-page__back" routerLink="/shop"
+    >&larr; Back to products</a
+  >
+
+  @if (loading()) {
+  <app-skeleton variant="card" />
+  } @else if (product(); as p) {
+
+  <div class="product-layout">
+    <!-- LEFT — Image gallery -->
+    <div class="product-gallery">
+      <div class="product-gallery__main">
+        @if (galleryImages().length > 1) {
+        <button
+          class="product-gallery__arrow product-gallery__arrow--prev"
+          type="button"
+          (click)="prevImage()"
+          aria-label="Previous image"
+        >
+          &#8249;
+        </button>
+        }
+        <img
+          class="product-gallery__active"
+          [src]="activeImage()"
+          [alt]="p.name"
+        />
+        @if (galleryImages().length > 1) {
+        <button
+          class="product-gallery__arrow product-gallery__arrow--next"
+          type="button"
+          (click)="nextImage()"
+          aria-label="Next image"
+        >
+          &#8250;
+        </button>
+        }
+      </div>
+
+      @if (galleryImages().length > 1) {
+      <div class="product-gallery__thumbs">
+        @for (img of galleryImages(); track img; let i = $index) {
+        <button
+          class="product-gallery__thumb"
+          [class.product-gallery__thumb--active]="i === activeIndex()"
+          type="button"
+          (click)="selectImage(i)"
+        >
+          <img [src]="img" [alt]="p.name + ' image ' + (i + 1)" />
+        </button>
+        }
+      </div>
+      }
+    </div>
+
+    <!-- RIGHT — Product info -->
+    <div class="product-info">
+      <!-- Breadcrumb / seller -->
+      <div class="product-info__meta">
+        @if (p.sellerName) {
+        <span class="product-info__seller"
+          >Sold by <strong>{{ p.sellerName }}</strong></span
+        >
+        }
+      </div>
+
+      <h1 class="product-info__name">{{ p.name }}</h1>
+
+      <!-- Price block -->
+      <div class="product-info__price-block">
+        <span class="product-info__price"
+          >₹{{ p.price | number: '1.0-0' }}</span
+        >
+        <span class="product-info__price-note">Inclusive of all taxes</span>
+      </div>
+
+      <!-- EMI teaser -->
+      @if (emiOptions().length > 0) {
+      <div class="product-info__emi">
+        <button
+          class="product-info__emi-toggle"
+          type="button"
+          (click)="emiOpen.update(v => !v)"
+        >
+          or ₹{{ emiOptions()[0].emi | number: '1.0-0' }}/mo for 3 months
+          <span>{{ emiOpen() ? '▲' : '▼' }}</span>
+        </button>
+        @if (emiOpen()) {
+        <div class="product-info__emi-panel">
+          <p class="product-info__emi-note">
+            Illustrative EMI at 12% p.a. — calculated using Best4U's Money
+            calculator.
+          </p>
+          <table class="product-info__emi-table">
+            <thead>
+              <tr>
+                <th>Tenure</th>
+                <th>Monthly EMI</th>
+                <th>Total payable</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (opt of emiOptions(); track opt.months) {
+              <tr>
+                <td>{{ opt.months }} months</td>
+                <td>₹{{ opt.emi | number: '1.0-0' }}/mo</td>
+                <td>₹{{ opt.emi * opt.months | number: '1.0-0' }}</td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        }
+      </div>
+      }
+
+      <!-- Stock badge -->
+      <div class="product-info__stock-wrap">
+        <span class="product-info__stock" [class]="stockClass">
+          {{ stockLabel }}
+        </span>
+      </div>
+
+      <!-- Description -->
+      @if (p.description) {
+      <div class="product-info__description">
+        <h3>About this product</h3>
+        <p>{{ p.description }}</p>
+      </div>
+      }
+
+      <!-- Add to cart -->
+      @if (p.inStock) {
+      <div class="product-info__purchase">
+        <div class="product-info__qty-wrap">
+          <label for="qty">Qty</label>
+          <input
+            id="qty"
+            type="number"
+            class="product-info__qty"
+            min="1"
+            [max]="p.stockQuantity"
+            [value]="quantity()"
+            (input)="onQuantityInput($any($event.target).value)"
+          />
+        </div>
+        <button
+          class="product-info__add-btn"
+          type="button"
+          [disabled]="adding()"
+          (click)="addToCart()"
+        >
+          {{ adding() ? 'Adding...' : 'Add to cart' }}
+        </button>
+      </div>
+      } @else {
+      <button
+        class="product-info__add-btn product-info__add-btn--disabled"
+        type="button"
+        disabled
+      >
+        Out of stock
+      </button>
+      }
+
+      <!-- Trust strip -->
+      <div class="product-info__trust">
+        <span class="product-info__trust-item">🔒 Secure checkout</span>
+        <span class="product-info__trust-item">📦 Seller-managed delivery</span>
+        <span class="product-info__trust-item">↩️ Hassle-free returns</span>
+      </div>
+
+      <!-- Reviews section -->
+      <div class="product-reviews">
+        @if (rating(); as r) {
+        <div class="product-reviews__summary">
+          <span class="product-reviews__stars"
+            >{{ starsFor(r.averageRating) }}</span
+          >
+          <span class="product-reviews__avg"
+            >{{ r.averageRating | number: '1.1-1' }}</span
+          >
+          <span class="product-reviews__count"
+            >({{ r.reviewCount }} review{{ r.reviewCount !== 1 ? 's' : ''
+            }})</span
+          >
+        </div>
+        } @if (rating()?.canReview) {
+        <div class="product-reviews__form">
+          <h3>Leave a review</h3>
+          <div class="product-reviews__rating-select">
+            @for (n of [1,2,3,4,5]; track n) {
+            <button
+              type="button"
+              class="product-reviews__star-btn"
+              [class.product-reviews__star-btn--active]="n <= reviewRating()"
+              (click)="reviewRating.set(n)"
+            >
+              ★
+            </button>
+            }
+          </div>
+          <textarea
+            class="product-reviews__textarea"
+            rows="3"
+            placeholder="Share your experience (optional)"
+            [value]="reviewComment()"
+            (input)="reviewComment.set($any($event.target).value)"
+          ></textarea>
+          <button
+            class="product-info__add-btn"
+            style="width: auto; padding: 8px 20px"
+            type="button"
+            [disabled]="submittingReview()"
+            (click)="submitReview()"
+          >
+            {{ submittingReview() ? 'Submitting...' : 'Submit review' }}
+          </button>
+        </div>
+        } @if (reviews().length > 0) {
+        <div class="product-reviews__list">
+          @for (review of reviews(); track review.id) {
+          <div class="product-reviews__item">
+            <div class="product-reviews__item-header">
+              <span class="product-reviews__item-stars"
+                >{{ starsFor(review.rating) }}</span
+              >
+              <span class="product-reviews__item-author"
+                >{{ review.reviewerName }}</span
+              >
+            </div>
+            @if (review.comment) {
+            <p class="product-reviews__item-comment">{{ review.comment }}</p>
+            }
+          </div>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Related products -->
+      <div class="product-related">
+        <h3>You might also like</h3>
+        <!-- loaded lazily - component expansion below -->
+      </div>
+    </div>
+  </div>
+
+  } @else {
+  <p class="shop-empty">Product not found.</p>
+  }
+</div>

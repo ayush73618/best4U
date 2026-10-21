@@ -1,0 +1,15 @@
+<!-- code-shell.html -->
+<main class="dev-page">
+  <a class="dev-page__back" routerLink="/">&larr; Back to Best4U</a>
+  <nav class="dev-page__tabs" aria-label="Code tools">
+    @for (tool of tools; track tool.id) {
+    <a
+      class="dev-page__tab"
+      [routerLink]="tool.path"
+      routerLinkActive="dev-page__tab--active"
+      >{{ tool.label }}</a
+    >
+    }
+  </nav>
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,75 @@
+<section class="travel" aria-label="Trip notes">
+  <header class="travel__header">
+    <h1>Notes</h1>
+    <p>Part of BTr4U — Best Trip 4 U</p>
+  </header>
+
+  @if (isNewDraft() || editingId() !== null) {
+  <div class="travel__form">
+    <div class="travel__field">
+      <input
+        type="text"
+        class="travel__editor-title"
+        placeholder="Title"
+        [value]="draftTitle()"
+        (input)="onTitleInput($any($event.target).value)"
+      />
+    </div>
+    <div class="travel__field">
+      <textarea
+        class="travel__editor-body"
+        placeholder="Write your note..."
+        rows="8"
+        [value]="draftBody()"
+        (input)="onBodyInput($any($event.target).value)"
+      ></textarea>
+    </div>
+    @if (errorMessage()) {
+    <p class="travel__note" style="color: #7a2b2b">{{ errorMessage() }}</p>
+    }
+    <div class="travel__row">
+      <button class="travel__button" type="button" (click)="saveNote()">
+        Save
+      </button>
+      <button
+        class="travel__button travel__button--ghost"
+        type="button"
+        (click)="cancelEdit()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+  } @else {
+  <button class="travel__button" type="button" (click)="newNote()">
+    + New note
+  </button>
+
+  @if (loading()) {
+  <p class="travel__empty">Loading notes...</p>
+  } @else if (notes().length === 0) {
+  <p class="travel__empty">No notes yet — create your first one above.</p>
+  } @else {
+  <ul class="travel__list">
+    @for (note of notes(); track note.id) {
+    <li
+      class="travel__item"
+      (click)="openNote(note.id)"
+      style="cursor: pointer"
+    >
+      <div class="travel__item-text">
+        <strong>{{ note.title || 'Untitled' }}</strong>
+        <span class="travel__item-meta">{{ snippet(note) }}</span>
+      </div>
+      <button
+        class="travel__button travel__button--ghost"
+        type="button"
+        (click)="deleteNote(note.id); $event.stopPropagation()"
+      >
+        ✕
+      </button>
+    </li>
+    }
+  </ul>
+  } }
+</section>

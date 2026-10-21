@@ -21,10 +21,22 @@
 
   &__tabs {
     display: flex;
-    flex-wrap: wrap;
     gap: $space-2;
     margin-bottom: $space-4;
     border-bottom: 1px solid $color-border;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $color-border;
+      border-radius: $radius-pill;
+    }
   }
 
   &__tab {
@@ -36,6 +48,7 @@
     text-decoration: none;
     border-bottom: 2px solid transparent;
     margin-bottom: -1px;
+    flex-shrink: 0;
     &:hover {
       color: $color-ink;
     }
@@ -43,6 +56,12 @@
       color: $color-brand;
       border-bottom-color: $color-brand;
     }
+  }
+  &__topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-2;
   }
 }
 
@@ -98,6 +117,31 @@
     }
 
     select {
+      appearance: none;
+      -webkit-appearance: none;
+      padding: $space-2 $space-6 $space-2 $space-3;
+      border: 1px solid $color-border;
+      border-radius: $radius-sm;
+      font-family: $font-body;
+      font-size: $font-size-sm;
+      color: $color-ink;
+      background-color: $color-surface;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3e%3cpath fill='%23666' d='M1 1l5 5 5-5'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right $space-3 center;
+      background-size: 10px 6px;
+      cursor: pointer;
+
+      &:hover {
+        border-color: $color-ink-muted;
+      }
+      &:focus-visible {
+        border-color: $color-brand;
+        outline: none;
+      }
+    }
+
+    input[type="number"] {
       padding: $space-2 $space-3;
       border: 1px solid $color-border;
       border-radius: $radius-sm;
@@ -105,6 +149,16 @@
       font-size: $font-size-sm;
       background: $color-surface;
     }
+  }
+
+  &__mat-field {
+    width: 140px;
+    --mat-form-field-container-height: 1.5rem;
+    --mat-form-field-container-vertical-padding: 0.4rem;
+  }
+
+  ::ng-deep .mat-mdc-option {
+    min-height: $mat-mdc-option-min-height;
   }
 
   &__button {
@@ -129,8 +183,11 @@
     background: transparent;
     color: $color-ink-muted;
     border: 1px solid $color-border;
+
     &:hover {
-      color: $color-ink;
+      background: $color-brand;
+      color: #fff;
+      border-color: $color-brand;
     }
   }
 

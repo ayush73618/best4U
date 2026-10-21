@@ -1,0 +1,68 @@
+<section class="admin" aria-label="Seller applications">
+  <header class="admin__header">
+    <h1>Seller applications</h1>
+    <p>Review and approve people requesting to sell on Best4U</p>
+  </header>
+
+  @if (loading()) {
+  <p class="admin__empty">Loading applications...</p>
+  } @else if (applications().length === 0) {
+  <p class="admin__empty">No pending applications — all caught up ✓</p>
+  } @else {
+  <ul class="admin__list">
+    @for (app of applications(); track app.userId) {
+    <li class="admin__item admin__item--card">
+      <div class="admin__seller-header">
+        <div>
+          <strong>{{ app.shopName || 'No shop name' }}</strong>
+          <span class="admin__badge">{{ app.businessType }}</span>
+        </div>
+        <div class="admin__actions">
+          <button
+            class="admin__button"
+            type="button"
+            (click)="approve(app.userId)"
+          >
+            Approve
+          </button>
+          <button
+            class="admin__button admin__button--ghost"
+            type="button"
+            (click)="reject(app.userId)"
+          >
+            Reject
+          </button>
+        </div>
+      </div>
+      <div class="admin__seller-detail">
+        <div class="admin__detail-row">
+          <span class="admin__detail-label">Applicant</span>
+          <span>{{ app.firstName }} {{ app.lastName }} — {{ app.email }}</span>
+        </div>
+        @if (app.primaryCategory) {
+        <div class="admin__detail-row">
+          <span class="admin__detail-label">Category</span>
+          <span>{{ app.primaryCategory }}</span>
+        </div>
+        } @if (app.businessPhone) {
+        <div class="admin__detail-row">
+          <span class="admin__detail-label">Phone</span>
+          <span>{{ app.businessPhone }}</span>
+        </div>
+        } @if (app.gstNumber) {
+        <div class="admin__detail-row">
+          <span class="admin__detail-label">GST</span>
+          <span>{{ app.gstNumber }}</span>
+        </div>
+        } @if (app.whyDoYouWantToSell) {
+        <div class="admin__detail-row admin__detail-row--full">
+          <span class="admin__detail-label">Why they want to sell</span>
+          <p class="admin__detail-text">{{ app.whyDoYouWantToSell }}</p>
+        </div>
+        }
+      </div>
+    </li>
+    }
+  </ul>
+  }
+</section>

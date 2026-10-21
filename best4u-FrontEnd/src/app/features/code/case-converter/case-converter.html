@@ -1,0 +1,57 @@
+<!-- case-converter.html -->
+<section class="dev" aria-label="Case Converter">
+  <header class="dev__header">
+    <h1>Case Converter</h1>
+    <p>Part of BC4U — Best Code 4 U</p>
+  </header>
+
+  <div class="dev__field">
+    <label for="caseInput">Text</label>
+    <input
+      id="caseInput"
+      type="text"
+      placeholder="my_variable-name"
+      [value]="input()"
+      (input)="onInput($any($event.target).value)"
+    />
+  </div>
+
+  @if (input()) {
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>camelCase</label><app-copy-button [text]="camelCase()" />
+    </div>
+    <input class="dev__output-line" readonly [value]="camelCase()" />
+  </div>
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>PascalCase</label><app-copy-button [text]="pascalCase()" />
+    </div>
+    <input class="dev__output-line" readonly [value]="pascalCase()" />
+  </div>
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>snake_case</label><app-copy-button [text]="snakeCase()" />
+    </div>
+    <input class="dev__output-line" readonly [value]="snakeCase()" />
+  </div>
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>kebab-case</label><app-copy-button [text]="kebabCase()" />
+    </div>
+    <input class="dev__output-line" readonly [value]="kebabCase()" />
+  </div>
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>CONSTANT_CASE</label><app-copy-button [text]="constantCase()" />
+    </div>
+    <input class="dev__output-line" readonly [value]="constantCase()" />
+  </div>
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>Title Case</label><app-copy-button [text]="titleCase()" />
+    </div>
+    <input class="dev__output-line" readonly [value]="titleCase()" />
+  </div>
+  }
+</section>

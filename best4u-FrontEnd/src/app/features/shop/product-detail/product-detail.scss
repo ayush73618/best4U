@@ -1,0 +1,520 @@
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+@use "assets/styles/shop" as *;
+
+.product-detail-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: $space-4 $space-4 $space-8;
+
+  &__back {
+    display: inline-block;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+    text-decoration: none;
+    margin-bottom: $space-5;
+    transition: color 0.15s;
+
+    &:hover {
+      color: $color-brand;
+    }
+  }
+}
+
+// ── Two-column layout ───────────────────────────────────────────────────
+.product-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-8;
+  align-items: flex-start;
+}
+
+// ── Gallery ─────────────────────────────────────────────────────────────
+.product-gallery {
+  position: sticky;
+  top: 72px; // below header
+
+  &__main {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: $color-surface;
+    border-radius: $radius-md;
+    overflow: hidden;
+    margin-bottom: $space-3;
+  }
+
+  &__active {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: opacity 0.2s ease;
+  }
+
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid $color-border;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition:
+      background 0.15s,
+      box-shadow 0.15s;
+
+    &:hover {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+    &--prev {
+      left: $space-2;
+    }
+    &--next {
+      right: $space-2;
+    }
+  }
+
+  &__thumbs {
+    display: flex;
+    gap: $space-2;
+    flex-wrap: wrap;
+  }
+
+  &__thumb {
+    width: 68px;
+    height: 68px;
+    border: 2px solid transparent;
+    border-radius: $radius-sm;
+    overflow: hidden;
+    padding: 0;
+    cursor: pointer;
+    background: $color-surface;
+    transition: border-color 0.15s;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &--active {
+      border-color: $color-brand;
+    }
+    &:hover:not(&--active) {
+      border-color: $color-border;
+    }
+  }
+}
+
+// ── Product info ─────────────────────────────────────────────────────────
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+
+  &__meta {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+  }
+
+  &__seller strong {
+    color: $color-brand;
+  }
+
+  &__name {
+    font-family: $font-display;
+    font-size: 1.75rem;
+    font-weight: $font-weight-bold;
+    color: $color-ink;
+    margin: 0;
+    line-height: $line-height-tight;
+  }
+
+  &__price-block {
+    display: flex;
+    align-items: baseline;
+    gap: $space-3;
+  }
+
+  &__price {
+    font-family: $font-display;
+    font-size: 2rem;
+    font-weight: $font-weight-bold;
+    color: $color-ink;
+  }
+
+  &__price-note {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+  }
+
+  // EMI
+  &__emi {
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    overflow: hidden;
+  }
+
+  &__emi-toggle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $space-2 $space-3;
+    background: none;
+    border: none;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-brand;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  &__emi-panel {
+    padding: $space-3;
+    border-top: 1px solid $color-border;
+  }
+
+  &__emi-note {
+    font-family: $font-body;
+    font-size: $font-size-xs;
+    color: $color-ink-muted;
+    margin: 0 0 $space-3;
+  }
+
+  &__emi-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+
+    th,
+    td {
+      padding: $space-2 $space-3;
+      text-align: left;
+      border-bottom: 1px solid $color-border;
+    }
+
+    th {
+      color: $color-ink-muted;
+      font-weight: $font-weight-medium;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+
+  // Stock
+  &__stock-wrap {
+    display: flex;
+    align-items: center;
+  }
+
+  &__stock {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    padding: $space-1 $space-3;
+    border-radius: $radius-pill;
+
+    &--ok {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    &--low {
+      background: #fff4e5;
+      color: #a15c00;
+    }
+    &--out {
+      background: #fdecea;
+      color: #b3261e;
+    }
+  }
+
+  // Description
+  &__description {
+    h3 {
+      font-family: $font-body;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-medium;
+      color: $color-ink-muted;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 0 0 $space-2;
+    }
+
+    p {
+      font-family: $font-body;
+      font-size: $font-size-base;
+      color: $color-ink;
+      margin: 0;
+      line-height: $line-height-normal;
+    }
+  }
+
+  // Purchase row
+  &__purchase {
+    display: flex;
+    gap: $space-3;
+    align-items: center;
+  }
+
+  &__qty-wrap {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+
+    label {
+      font-family: $font-body;
+      font-size: $font-size-sm;
+      color: $color-ink-muted;
+    }
+  }
+
+  &__qty {
+    width: 72px;
+    padding: $space-2 $space-3;
+    border: 1.5px solid $color-border;
+    border-radius: $radius-sm;
+    font-family: $font-body;
+    font-size: $font-size-base;
+    text-align: center;
+
+    &:focus-visible {
+      border-color: $color-brand;
+      outline: none;
+    }
+  }
+
+  &__add-btn {
+    flex: 1;
+    padding: $space-3 $space-4;
+    background: $color-brand;
+    color: #fff;
+    border: none;
+    border-radius: $radius-sm;
+    font-family: $font-body;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-base;
+    cursor: pointer;
+    transition:
+      background 0.15s,
+      transform 0.1s;
+
+    &:hover {
+      background: $color-brand-strong;
+    }
+    &:active {
+      transform: scale(0.98);
+    }
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    &--disabled {
+      background: $color-surface;
+      color: $color-ink-muted;
+      border: 1px solid $color-border;
+      cursor: not-allowed;
+    }
+  }
+
+  // Trust strip
+  &__trust {
+    display: flex;
+    gap: $space-4;
+    flex-wrap: wrap;
+    padding: $space-3;
+    background: $color-surface;
+    border-radius: $radius-sm;
+  }
+
+  &__trust-item {
+    font-family: $font-body;
+    font-size: $font-size-xs;
+    color: $color-ink-muted;
+  }
+}
+
+.product-reviews {
+  margin-top: $space-6;
+  padding-top: $space-5;
+  border-top: 1px solid $color-border;
+
+  &__summary {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    margin-bottom: $space-4;
+  }
+
+  &__stars {
+    color: $color-accent;
+    font-size: 1.2rem;
+  }
+  &__avg {
+    font-family: $font-display;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+  }
+  &__count {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+  }
+
+  &__form {
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    padding: $space-4;
+    margin-bottom: $space-4;
+
+    h3 {
+      font-size: $font-size-base;
+      margin: 0 0 $space-3;
+    }
+  }
+
+  &__rating-select {
+    display: flex;
+    gap: 4px;
+    margin-bottom: $space-3;
+  }
+
+  &__star-btn {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: $color-border;
+    transition: color 0.1s;
+    padding: 0;
+    line-height: 1;
+
+    &--active {
+      color: $color-accent;
+    }
+    &:hover {
+      color: $color-accent;
+    }
+  }
+
+  &__textarea {
+    width: 100%;
+    padding: $space-2 $space-3;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    font-family: $font-body;
+    font-size: $font-size-base;
+    resize: vertical;
+    margin-bottom: $space-3;
+
+    &:focus-visible {
+      border-color: $color-brand;
+      outline: none;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+    margin-top: $space-4;
+  }
+
+  &__item {
+    padding: $space-3;
+    background: $color-surface;
+    border-radius: $radius-sm;
+    border: 1px solid $color-border;
+  }
+
+  &__item-header {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    margin-bottom: $space-2;
+  }
+
+  &__item-stars {
+    color: $color-accent;
+  }
+  &__item-author {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+  }
+
+  &__item-comment {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink;
+    margin: 0;
+    line-height: $line-height-normal;
+  }
+}
+
+.product-related {
+  margin-top: $space-6;
+  padding-top: $space-5;
+  border-top: 1px solid $color-border;
+
+  h3 {
+    font-size: $font-size-base;
+    margin: 0 0 $space-4;
+  }
+}
+
+// ── Mobile ───────────────────────────────────────────────────────────────
+@media (max-width: 700px) {
+  .product-layout {
+    grid-template-columns: 1fr;
+    gap: $space-4;
+  }
+
+  .product-gallery {
+    position: static;
+  }
+
+  .product-info__purchase {
+    flex-direction: column;
+  }
+  .product-info__add-btn {
+    width: 100%;
+  }
+  .product-info__trust {
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  // Sticky add-to-cart bar on mobile
+  .product-info__add-btn-mobile-sticky {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: $space-3 $space-4;
+    background: $color-surface-raised;
+    border-top: 1px solid $color-border;
+    z-index: 100;
+  }
+}

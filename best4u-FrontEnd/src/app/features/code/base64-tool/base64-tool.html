@@ -1,0 +1,56 @@
+<!-- base64-tool.html -->
+<section class="dev" aria-label="Base64 Encode/Decode">
+  <header class="dev__header">
+    <h1>Base64 Encode/Decode</h1>
+    <p>Part of BC4U — Best Code 4 U</p>
+  </header>
+
+  <div class="dev__option-row">
+    <button
+      class="dev__button"
+      [class.dev__button--active]="mode() === 'encode'"
+      [class.dev__button--ghost]="mode() !== 'encode'"
+      type="button"
+      (click)="setMode('encode')"
+    >
+      Encode
+    </button>
+    <button
+      class="dev__button"
+      [class.dev__button--active]="mode() === 'decode'"
+      [class.dev__button--ghost]="mode() !== 'decode'"
+      type="button"
+      (click)="setMode('decode')"
+    >
+      Decode
+    </button>
+  </div>
+
+  <div class="dev__field">
+    <label for="b64Input">{{ mode() === 'encode' ? 'Text' : 'Base64' }}</label>
+    <textarea
+      id="b64Input"
+      class="dev__textarea"
+      rows="6"
+      [value]="input()"
+      (input)="onInput($any($event.target).value)"
+    ></textarea>
+  </div>
+
+  @if (result().error) {
+  <p class="dev__validation">{{ result().error }}</p>
+  } @else if (result().output) {
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>{{ mode() === 'encode' ? 'Base64' : 'Text' }}</label
+      ><app-copy-button [text]="result().output" />
+    </div>
+    <textarea
+      class="dev__textarea dev__textarea--output"
+      rows="6"
+      readonly
+      [value]="result().output"
+    ></textarea>
+  </div>
+  }
+</section>

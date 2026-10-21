@@ -1,0 +1,19 @@
+<div class="shop-empty">
+  @switch (status()) { @case ('starting') {
+  <p>Preparing your order...</p>
+  } @case ('paying') {
+  <p>Complete your payment in the window that opened.</p>
+  } @case ('verifying') {
+  <p>Confirming your payment...</p>
+  } @case ('error') {
+  <p>{{ errorMessage() }}</p>
+  <button
+    class="shop-button"
+    type="button"
+    style="margin-top: 16px"
+    (click)="retry()"
+  >
+    Try again
+  </button>
+  } }
+</div>

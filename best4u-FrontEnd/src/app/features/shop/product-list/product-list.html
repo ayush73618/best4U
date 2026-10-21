@@ -1,0 +1,40 @@
+@if (loading()) {
+<app-skeleton variant="product-grid" [count]="8" />
+} @else if (products().length === 0) {
+<app-empty-state
+  icon="🔍"
+  title="No products found"
+  [message]="searchActive() ? 'Try a different search term or browse by category.' : 'No products in this category yet.'"
+  actionLabel="Browse all products"
+  actionRoute="/shop"
+/>
+} @else {
+<div class="shop-grid">
+  @for (product of products(); track product.id) {
+  <a class="product-card" [routerLink]="['/shop/products', product.id]">
+    <img
+      class="product-card__image"
+      [src]="imageFor(product)"
+      [alt]="product.name"
+    />
+    <span class="product-card__name">{{ product.name }}</span>
+    <span class="product-card__price"
+      >₹{{ product.price | number: '1.0-0' }}</span
+    >
+    @if (product.reviewCount > 0) {
+    <span class="product-card__rating">
+      {{ starsFor(product.averageRating) }}
+      <small>({{ product.reviewCount }})</small>
+    </span>
+    }
+    <span
+      class="product-card__stock"
+      [class.product-card__stock--out]="!product.inStock"
+    >
+      {{ product.inStock ? product.stockQuantity + ' in stock' : 'Out of stock'
+      }}
+    </span>
+  </a>
+  }
+</div>
+}

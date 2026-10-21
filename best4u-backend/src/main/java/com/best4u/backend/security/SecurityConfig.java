@@ -41,7 +41,10 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
-                .requestMatchers("/docs/**").permitAll() // stateless file processing, nothing stored per-user
+                .requestMatchers(HttpMethod.GET, "/categories/**").permitAll() // browsing categories shouldn't require login
+                .requestMatchers("/docs/**").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN") // stateless file processing, nothing stored per-user
+                .requestMatchers(HttpMethod.PATCH, "/products/**").hasRole("SELLER")
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -54,7 +57,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         // Adjust to your actual Angular dev + prod origins before deploying.
         config.setAllowedOrigins(List.of("http://localhost:4200"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 

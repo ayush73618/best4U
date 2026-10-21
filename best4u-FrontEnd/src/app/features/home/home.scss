@@ -5,138 +5,403 @@
 .home {
   max-width: $max-content-width;
   margin: 0 auto;
+  padding: 0 $space-4 $space-8;
+}
+
+// ── Hero ─────────────────────────────────────────────────────────────────
+.home__hero {
   padding: $space-8 $space-6;
+  margin-bottom: $space-6;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 82, 87, 0.07) 0%,
+    rgba(201, 147, 15, 0.05) 100%
+  );
+  border-radius: $radius-md;
+  border: 1px solid $color-border;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: $space-6;
+  align-items: center;
+}
 
-  &__hero {
-    margin-bottom: $space-8;
+.home__hero-title {
+  font-family: $font-display;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-ink;
+  margin: 0 0 $space-2;
+  line-height: $line-height-tight;
+}
 
-    h1 {
-      font-size: $font-size-2xl;
-      margin-bottom: $space-3;
-    }
+.home__hero-sub {
+  font-family: $font-body;
+  font-size: $font-size-lg;
+  color: $color-ink-muted;
+  margin: 0 0 $space-5;
+}
 
-    p {
-      font-family: $font-body;
+.home__hero-search {
+  display: flex;
+  align-items: center;
+  max-width: 460px;
+  background: $color-surface-raised;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-pill;
+  overflow: hidden;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+
+  &:focus-within {
+    border-color: $color-brand;
+    box-shadow: 0 0 0 3px rgba(15, 82, 87, 0.12);
+  }
+
+  &-icon {
+    padding: 0 $space-3;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: $space-3 0;
+    font-family: $font-body;
+    font-size: $font-size-base;
+    outline: none;
+    color: $color-ink;
+
+    &::placeholder {
       color: $color-ink-muted;
-      font-size: $font-size-lg;
-      margin: 0;
+    }
+    &::-webkit-search-cancel-button {
+      display: none;
     }
   }
 
-  &__umbrella {
-    margin-bottom: $space-8;
-  }
+  button {
+    padding: $space-2 $space-4;
+    margin: 4px;
+    background: $color-brand;
+    color: #fff;
+    border: none;
+    border-radius: $radius-pill;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: background 0.15s;
 
-  &__umbrella-header {
-    margin-bottom: $space-4;
-
-    h2 {
-      font-size: $font-size-xl;
-      margin-bottom: $space-1;
-    }
-
-    p {
-      font-family: $font-body;
-      color: $color-ink-muted;
-      font-size: $font-size-sm;
-      margin: 0;
+    &:hover {
+      background: $color-brand-strong;
     }
   }
+}
 
-  &__brand-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: $space-4;
+.home__hero-badges {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.home__hero-badge {
+  display: block;
+  padding: $space-2 $space-3;
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  color: $color-ink-muted;
+  white-space: nowrap;
+}
+
+// ── Sections ──────────────────────────────────────────────────────────────
+.home__section {
+  margin-bottom: $space-8;
+}
+
+.home__section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: $space-4;
+}
+
+.home__section-title {
+  font-family: $font-display;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  margin: 0;
+}
+
+.home__umbrella-tagline {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  color: $color-ink-muted;
+  margin: $space-1 0 0;
+}
+
+.home__section-link {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  color: $color-brand;
+  text-decoration: none;
+  font-weight: $font-weight-medium;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// ── Quick cards ──────────────────────────────────────────────────────────
+.home__quick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: $space-3;
+}
+
+.home__quick-card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  padding: $space-4;
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(15, 82, 87, 0.1);
+    transform: translateY(-2px);
   }
 
-  &__brand-card {
+  &-label {
+    font-family: $font-body;
+    font-size: $font-size-xs;
+    color: $color-ink-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &-value {
+    font-family: $font-display;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-ink;
+  }
+
+  &-sub {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-brand;
+  }
+}
+
+// ── New arrivals product rail ─────────────────────────────────────────────
+.home__product-rail {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: $space-3;
+}
+
+.home__product-card {
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  &-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: $color-surface;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.04);
+    }
+  }
+
+  &-info {
+    padding: $space-3;
     display: flex;
     flex-direction: column;
     gap: $space-1;
-    padding: $space-4;
-    background: $color-surface-raised;
-    border: 1px solid $color-border;
-    border-left: 3px solid $color-brand;
-    border-radius: $radius-sm;
-    text-decoration: none;
-    color: inherit;
+  }
 
-    &--active {
-      cursor: pointer;
-      transition:
-        border-color 0.15s ease,
-        box-shadow 0.15s ease;
+  &-name {
+    font-family: $font-body;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    color: $color-ink;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 
-      &:hover {
-        border-color: $color-brand;
-        box-shadow: 0 2px 8px rgba(15, 82, 87, 0.15);
-      }
+  &-rating {
+    font-size: $font-size-xs;
+    color: $color-accent;
+
+    small {
+      color: $color-ink-muted;
     }
   }
 
-  &__brand-open {
-    flex-shrink: 0;
-    font-family: $font-body;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-medium;
-    color: $color-brand;
-    white-space: nowrap;
+  &-price {
+    font-family: $font-display;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-base;
+    color: $color-ink;
   }
+}
 
-  &__brand-card-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: $space-2;
+// ── Brand grid ────────────────────────────────────────────────────────────
+.home__brand-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: $space-3;
+}
 
-    h3 {
-      flex: 1;
-      min-width: 0;
-      font-size: $font-size-base;
-      overflow-wrap: break-word;
+.home__brand-card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  padding: $space-4;
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
+
+  &--active {
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 4px 16px rgba(15, 82, 87, 0.1);
+      transform: translateY(-2px);
     }
   }
 
-  &__brand-badge {
-    flex-shrink: 0;
-    font-family: $font-body;
-    font-size: 0.7rem;
-    font-weight: $font-weight-medium;
-    padding: 2px $space-2;
-    border-radius: $radius-pill;
-    background: $color-status-planned-bg;
-    color: $color-status-planned-text;
-    white-space: nowrap;
+  &--planned {
+    opacity: 0.55;
+    cursor: default;
   }
+}
 
-  &__brand-code {
-    font-family: $font-body;
-    font-weight: $font-weight-medium;
-    font-size: $font-size-sm;
-    color: $color-ink-muted;
-    margin: 0;
-  }
+.home__brand-icon {
+  font-size: 1.8rem;
+  display: block;
+  margin-bottom: $space-1;
+}
 
-  &__brand-tagline {
-    font-family: $font-body;
-    font-size: $font-size-sm;
-    color: $color-ink-muted;
-    margin: 0;
-  }
+.home__brand-name {
+  font-family: $font-display;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-base;
+  color: $color-ink;
+}
 
-  section[data-umbrella="shopping"] &__brand-card {
-    border-left-color: $color-umbrella-shopping;
-  }
+.home__brand-tagline {
+  font-family: $font-body;
+  font-size: $font-size-xs;
+  color: $color-ink-muted;
+  line-height: $line-height-normal;
+}
 
-  section[data-umbrella="utilities"] &__brand-card {
-    border-left-color: $color-umbrella-utilities;
-  }
+.home__brand-cta {
+  font-family: $font-body;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $color-brand;
+  margin-top: auto;
+  padding-top: $space-2;
+}
 
-  section[data-umbrella="lifestyle"] &__brand-card {
-    border-left-color: $color-umbrella-lifestyle;
-  }
+.home__brand-badge {
+  position: absolute;
+  top: $space-2;
+  right: $space-2;
+  font-family: $font-body;
+  font-size: 0.65rem;
+  font-weight: $font-weight-medium;
+  padding: 2px $space-2;
+  background: $color-status-planned-bg;
+  color: $color-status-planned-text;
+  border-radius: $radius-pill;
+}
 
-  @media (max-width: 640px) {
+// Umbrella color accents
+.home__umbrella[data-umbrella="shopping"] .home__brand-card--active {
+  border-left: 3px solid $color-umbrella-shopping;
+}
+
+.home__umbrella[data-umbrella="utilities"] .home__brand-card--active {
+  border-left: 3px solid $color-umbrella-utilities;
+}
+
+.home__umbrella[data-umbrella="lifestyle"] .home__brand-card--active {
+  border-left: 3px solid $color-umbrella-lifestyle;
+}
+
+// ── Mobile ─────────────────────────────────────────────────────────────────
+@media (max-width: 700px) {
+  .home__hero {
+    grid-template-columns: 1fr;
     padding: $space-6 $space-4;
+  }
+
+  .home__hero-badges {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .home__hero-badge {
+    padding: $space-1 $space-2;
+    font-size: $font-size-xs;
+  }
+  .home__hero-title {
+    font-size: $font-size-xl;
+  }
+  .home__hero-sub {
+    font-size: $font-size-base;
+  }
+
+  .home__product-rail {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .home__brand-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .home__quick-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }

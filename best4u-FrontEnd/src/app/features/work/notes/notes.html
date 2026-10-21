@@ -6,7 +6,7 @@
 
   @if (loading()) {
   <p class="work__empty">Loading your notes...</p>
-  } @else if (editingId(); as id) {
+  } @else if (isNewDraft() || editingId() !== null) {
   <div class="work__editor">
     <input
       type="text"
@@ -22,24 +22,17 @@
       [value]="draftBody()"
       (input)="onBodyInput($any($event.target).value)"
     ></textarea>
+    @if (errorMessage()) {
+    <p class="work__validation">{{ errorMessage() }}</p>
+    }
     <div class="work__input-row">
-      <button class="work__button" type="button" (click)="saveNote()">
-        Save
-      </button>
-      <button
-        class="work__button work__button--ghost"
-        type="button"
-        (click)="cancelEdit()"
-      >
-        Cancel
-      </button>
+      <button class="work__button" type="button" (click)="saveNote()">Save</button>
+      <button class="work__button work__button--ghost" type="button" (click)="cancelEdit()">Cancel</button>
     </div>
   </div>
   } @else {
   <div class="work__input-row">
-    <button class="work__button" type="button" (click)="newNote()">
-      + New note
-    </button>
+    <button class="work__button" type="button" (click)="newNote()">+ New note</button>
   </div>
 
   @if (notes().length === 0) {
@@ -57,11 +50,10 @@
         type="button"
         (click)="deleteNote(note.id); $event.stopPropagation()"
         aria-label="Delete note"
-      >
-        ✕
-      </button>
+      >✕</button>
     </li>
     }
   </ul>
-  } }
+  }
+  }
 </section>

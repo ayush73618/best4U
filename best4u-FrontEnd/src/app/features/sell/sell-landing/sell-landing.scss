@@ -1,0 +1,379 @@
+@use "assets/styles/colors" as *;
+@use "assets/styles/typography" as *;
+@use "assets/styles/spacing" as *;
+
+.sell-page {
+  max-width: $max-content-width;
+  margin: 0 auto;
+  padding: 0 $space-4 $space-8;
+}
+
+// ── Hero ────────────────────────────────────────────────────────────────
+.sell-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: $space-6;
+  align-items: center;
+  padding: $space-8 0;
+  border-bottom: 1px solid $color-border;
+  margin-bottom: $space-8;
+
+  &__eyebrow {
+    display: inline-block;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-brand;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: $space-3;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-ink;
+    margin: 0 0 $space-4;
+    line-height: $line-height-tight;
+    max-width: 560px;
+  }
+
+  &__sub {
+    font-family: $font-body;
+    font-size: $font-size-lg;
+    color: $color-ink-muted;
+    margin: 0 0 $space-5;
+    max-width: 480px;
+    line-height: $line-height-normal;
+  }
+
+  &__stats {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+    padding: $space-5;
+    background: $color-surface-raised;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    min-width: 180px;
+  }
+}
+
+.sell-stat {
+  text-align: center;
+
+  &__value {
+    display: block;
+    font-family: $font-display;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-brand;
+  }
+
+  &__label {
+    display: block;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+  }
+}
+
+// ── Benefits ────────────────────────────────────────────────────────────
+.sell-benefits {
+  margin-bottom: $space-8;
+
+  h2 {
+    font-size: $font-size-xl;
+    margin-bottom: $space-5;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: $space-4;
+  }
+}
+
+.sell-benefit {
+  padding: $space-4;
+  background: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+
+  &__icon {
+    font-size: 1.6rem;
+    display: block;
+    margin-bottom: $space-3;
+  }
+
+  h3 {
+    font-size: $font-size-base;
+    margin: 0 0 $space-2;
+  }
+
+  p {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-ink-muted;
+    margin: 0;
+    line-height: $line-height-normal;
+  }
+}
+
+// ── Application form ────────────────────────────────────────────────────
+.sell-form-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: $space-6 0;
+
+  &__header {
+    margin-bottom: $space-5;
+
+    h1 {
+      font-size: $font-size-xl;
+      margin-bottom: $space-2;
+    }
+    p {
+      font-family: $font-body;
+      color: $color-ink-muted;
+      margin: 0;
+    }
+  }
+}
+
+.sell-form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+
+  &__section {
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    padding: $space-5;
+    margin: 0;
+
+    legend {
+      font-family: $font-body;
+      font-weight: $font-weight-medium;
+      font-size: $font-size-sm;
+      color: $color-ink-muted;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0 $space-2;
+    }
+  }
+
+  &__optional {
+    font-weight: $font-weight-regular;
+    font-size: $font-size-xs;
+    text-transform: none;
+    letter-spacing: 0;
+    color: $color-ink-muted;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+    margin-bottom: $space-4;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      font-family: $font-body;
+      font-weight: $font-weight-medium;
+      font-size: $font-size-sm;
+    }
+
+    input,
+    select,
+    textarea {
+      padding: $space-2 $space-3;
+      border: 1px solid $color-border;
+      border-radius: $radius-sm;
+      font-family: $font-body;
+      font-size: $font-size-base;
+      background: $color-surface;
+      transition: border-color 0.15s;
+
+      &:focus-visible {
+        border-color: $color-brand;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(15, 82, 87, 0.12);
+      }
+    }
+
+    textarea {
+      resize: vertical;
+    }
+  }
+
+  &__hint {
+    font-family: $font-body;
+    font-size: $font-size-xs;
+    color: $color-ink-muted;
+  }
+
+  &__req {
+    color: #b3261e;
+    margin-left: 2px;
+  }
+
+  &__radio-group {
+    display: flex;
+    gap: $space-2;
+    flex-wrap: wrap;
+  }
+
+  &__radio {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-2 $space-3;
+    border: 1.5px solid $color-border;
+    border-radius: $radius-sm;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    transition:
+      border-color 0.15s,
+      background 0.15s;
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    &--selected {
+      border-color: $color-brand;
+      background: rgba(15, 82, 87, 0.06);
+      color: $color-brand;
+      font-weight: $font-weight-medium;
+    }
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $space-3;
+  }
+
+  &__error {
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: #b3261e;
+    background: #fdecea;
+    padding: $space-2 $space-3;
+    border-radius: $radius-sm;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-3;
+    align-items: center;
+  }
+}
+
+// ── Status pages ─────────────────────────────────────────────────────────
+.sell-status {
+  max-width: 480px;
+  margin: $space-8 auto;
+  text-align: center;
+
+  &__icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: $space-4;
+  }
+
+  h1 {
+    font-size: $font-size-xl;
+    margin-bottom: $space-3;
+  }
+
+  p {
+    font-family: $font-body;
+    color: $color-ink-muted;
+    margin: 0 0 $space-5;
+    line-height: $line-height-normal;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-3;
+    justify-content: center;
+  }
+}
+
+// ── Buttons ───────────────────────────────────────────────────────────────
+.sell-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-2 $space-4;
+  border: none;
+  border-radius: $radius-sm;
+  font-family: $font-body;
+  font-weight: $font-weight-medium;
+  font-size: $font-size-base;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background 0.15s,
+    transform 0.1s;
+
+  &--primary {
+    background: $color-brand;
+    color: #fff;
+    &:hover {
+      background: $color-brand-strong;
+    }
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: $color-ink;
+    border: 1px solid $color-border;
+    &:hover {
+      background: $color-surface;
+    }
+  }
+
+  &--lg {
+    padding: $space-3 $space-6;
+    font-size: $font-size-lg;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// ── Mobile ─────────────────────────────────────────────────────────────────
+@media (max-width: 640px) {
+  .sell-hero {
+    grid-template-columns: 1fr;
+    padding: $space-6 0;
+
+    &__stats {
+      flex-direction: row;
+      min-width: unset;
+    }
+    &__title {
+      font-size: $font-size-xl;
+    }
+  }
+
+  .sell-form__row {
+    grid-template-columns: 1fr;
+  }
+  .sell-form__radio-group {
+    flex-direction: column;
+  }
+}

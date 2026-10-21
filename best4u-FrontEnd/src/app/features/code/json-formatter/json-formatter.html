@@ -1,0 +1,60 @@
+<!-- json-formatter.html -->
+<section class="dev" aria-label="JSON Formatter">
+  <header class="dev__header">
+    <h1>JSON Formatter & Validator</h1>
+    <p>Part of BC4U — Best Code 4 U</p>
+  </header>
+
+  <div class="dev__field">
+    <label for="jsonInput">Paste JSON</label>
+    <textarea
+      id="jsonInput"
+      class="dev__textarea"
+      rows="10"
+      placeholder='{"example": true}'
+      [value]="input()"
+      (input)="onInput($any($event.target).value)"
+    ></textarea>
+  </div>
+
+  <div class="dev__option-row">
+    <label>Indent</label>
+    <mat-form-field
+      appearance="outline"
+      subscriptSizing="dynamic"
+      class="dev__mat-field"
+    >
+      <mat-select
+        aria-label="Indent"
+        [value]="indent()"
+        (selectionChange)="onIndentChange($event.value)"
+      >
+        <mat-option [value]="2">2 spaces</mat-option>
+        <mat-option [value]="4">4 spaces</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button
+      class="dev__button dev__button--ghost"
+      type="button"
+      (click)="minify()"
+    >
+      Minify
+    </button>
+  </div>
+
+  @if (result().error) {
+  <p class="dev__validation">{{ result().error }}</p>
+  } @else if (result().formatted) {
+  <div class="dev__field">
+    <div class="dev__output-header">
+      <label>Formatted</label><app-copy-button [text]="result().formatted" />
+    </div>
+    <textarea
+      class="dev__textarea dev__textarea--output"
+      rows="10"
+      readonly
+      [value]="result().formatted"
+    ></textarea>
+  </div>
+  }
+</section>

@@ -32,16 +32,23 @@
   </div>
 
   <div class="calc__field">
-    <label for="compounding">Compounding frequency</label>
-    <select
-      id="compounding"
-      [value]="compoundingPerYear()"
-      (change)="onCompoundingChange($any($event.target).value)"
+    <label>Compounding frequency</label>
+    <mat-form-field
+      appearance="outline"
+      subscriptSizing="dynamic"
+      class="calc__mat-field"
     >
-      <option value="1">Annually</option>
-      <option value="4">Quarterly</option>
-      <option value="12">Monthly</option>
-    </select>
+      <mat-select
+        aria-label="Compounding frequency"
+        panelClass="fd-compounding-select"
+        [value]="compoundingPerYear()"
+        (selectionChange)="onCompoundingChange($event.value)"
+      >
+        <mat-option value="1">Annually</mat-option>
+        <mat-option value="4">Quarterly</mat-option>
+        <mat-option value="12">Monthly</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div class="calc__field">

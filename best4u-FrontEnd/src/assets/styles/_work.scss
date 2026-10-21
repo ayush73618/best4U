@@ -27,10 +27,22 @@
 
   &__tabs {
     display: flex;
-    flex-wrap: wrap;
     gap: $space-2;
     margin-bottom: $space-4;
     border-bottom: 1px solid $color-border;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $color-border;
+      border-radius: $radius-pill;
+    }
   }
 
   &__tab {
@@ -42,6 +54,7 @@
     text-decoration: none;
     border-bottom: 2px solid transparent;
     margin-bottom: -1px;
+    flex-shrink: 0;
 
     &:hover {
       color: $color-ink;
@@ -51,6 +64,13 @@
       color: $color-brand;
       border-bottom-color: $color-brand;
     }
+  }
+
+  &__topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-2;
   }
 }
 
@@ -118,8 +138,9 @@
       border: 1px solid $color-border;
 
       &:hover {
-        color: $color-ink;
-        border-color: $color-ink-muted;
+        background: $color-brand;
+        color: #fff;
+        border-color: $color-brand;
       }
     }
   }

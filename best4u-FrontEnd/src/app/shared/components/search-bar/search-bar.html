@@ -1,0 +1,53 @@
+<div class="search-bar">
+  <div class="search-bar__input-wrap">
+    <span class="search-bar__icon">🔍</span>
+    <input
+      type="search"
+      class="search-bar__input"
+      placeholder="Search products..."
+      [value]="query()"
+      (input)="onInput($any($event.target).value)"
+      (keydown.enter)="seeAllResults()"
+      aria-label="Search products"
+    />
+    @if (query()) {
+    <button
+      class="search-bar__clear"
+      type="button"
+      (click)="clear()"
+      aria-label="Clear search"
+    >
+      ✕
+    </button>
+    }
+  </div>
+
+  @if (showResults()) {
+  <div class="search-bar__panel" [@fadeIn] role="listbox">
+    @if (loading()) {
+    <p class="search-bar__state">Searching...</p>
+    } @else if (noResults()) {
+    <p class="search-bar__state">No products found for "{{ query() }}"</p>
+    } @else { @for (product of results(); track product.id) {
+    <button
+      class="search-bar__result"
+      type="button"
+      role="option"
+      (click)="goToProduct(product.id)"
+    >
+      <img [src]="imageFor(product)" [alt]="product.name" />
+      <div class="search-bar__result-text">
+        <span class="search-bar__result-name">{{ product.name }}</span>
+        <span class="search-bar__result-price"
+          >₹{{ product.price | number: '1.0-0' }}</span
+        >
+      </div>
+    </button>
+    }
+    <button class="search-bar__see-all" type="button" (click)="seeAllResults()">
+      See all results for "{{ query() }}" →
+    </button>
+    }
+  </div>
+  }
+</div>

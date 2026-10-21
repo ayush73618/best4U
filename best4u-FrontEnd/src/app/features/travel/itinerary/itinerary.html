@@ -1,0 +1,82 @@
+<section class="travel" aria-label="Itinerary">
+  <header class="travel__header">
+    <h1>Itinerary</h1>
+    <p>Part of BTr4U — Best Trip 4 U</p>
+  </header>
+
+  <div class="travel__form">
+    <div class="travel__row">
+      <div class="travel__field travel__field--narrow">
+        <label for="itDay">Day</label>
+        <input
+          id="itDay"
+          type="number"
+          min="1"
+          [value]="day()"
+          (input)="onDayInput($any($event.target).value)"
+        />
+      </div>
+      <div class="travel__field travel__field--narrow">
+        <label for="itTime">Time</label>
+        <input
+          id="itTime"
+          type="time"
+          [value]="time()"
+          (input)="onTimeInput($any($event.target).value)"
+        />
+      </div>
+      <div class="travel__field travel__field--grow">
+        <label for="itTitle">What's happening</label>
+        <input
+          id="itTitle"
+          type="text"
+          placeholder="e.g. Flight to Bali"
+          [value]="title()"
+          (input)="onTitleInput($any($event.target).value)"
+          (keydown.enter)="addItem()"
+        />
+      </div>
+    </div>
+    <div class="travel__field">
+      <label for="itNotes">Notes (optional)</label>
+      <input
+        id="itNotes"
+        type="text"
+        placeholder="Confirmation number, address..."
+        [value]="notes()"
+        (input)="onNotesInput($any($event.target).value)"
+      />
+    </div>
+    <button class="travel__button" type="button" (click)="addItem()">
+      Add to itinerary
+    </button>
+  </div>
+
+  @if (loading()) {
+  <p class="travel__empty">Loading itinerary...</p>
+  } @else if (items().length === 0) {
+  <p class="travel__empty">No plans yet — add your first stop above.</p>
+  } @else { @for (group of groupedByDay(); track group[0]) {
+  <h3 class="travel__day-heading">Day {{ group[0] }}</h3>
+  <ul class="travel__list">
+    @for (item of group[1]; track item.id) {
+    <li class="travel__item">
+      <div class="travel__item-text">
+        <strong
+          >{{ item.time ? item.time + ' — ' : '' }}{{ item.title }}</strong
+        >
+        @if (item.notes) {
+        <span class="travel__item-meta">{{ item.notes }}</span> }
+      </div>
+      <button
+        class="travel__button travel__button--ghost"
+        type="button"
+        (click)="deleteItem(item.id)"
+      >
+        ✕
+      </button>
+    </li>
+    }
+  </ul>
+  } }
+</section>
